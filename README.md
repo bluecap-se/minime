@@ -11,7 +11,7 @@ An online URL shortener
 ### Using Docker
 
 ```console
-$ docker run -d -p 80:8080 bluecap/minime:latest
+$ docker run -d -p 80:8000 bluecap/minime:latest
 ```
 
 ### Using a package manager
