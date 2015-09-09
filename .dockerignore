@@ -67,3 +67,4 @@ profiler/
 tests/
 requirements_tests.txt
 .gitignore
+pytest.ini

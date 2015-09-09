@@ -4,14 +4,15 @@
 MiniMe - An online URL shortener
 
 Usage:
-      minime [options]
+      minime runserver [options]
 
 Options:
+  -d, --develop             Run server in development mode.
   -h, --help                Output this help and exit
   --version                 Output version and exit
 
 Examples:
-  minime --version
+  minime runserver -d
 """
 
 
