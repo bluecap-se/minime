@@ -25,20 +25,34 @@ $ pip install -e .
 
 ## Usage
 
+### Quickstart
+
+```console
+$ minime runserver
+
+[...]
+Django version 1.8.4, using settings 'minime.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+```
+
+### Options
+
 ```console
 $ minime -h
 
 MiniMe - An online URL shortener
 
 Usage:
-      minime [options]
+      minime runserver [options]
 
 Options:
+  -d, --develop             Run server in development mode.
   -h, --help                Output this help and exit
   --version                 Output version and exit
 
 Examples:
-  minime --version
+  minime runserver -d
 ```
 
 
