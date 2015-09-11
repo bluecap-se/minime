@@ -1,8 +1,9 @@
 #!/bin/bash
+
 set -e
 
 if [ "$1" = 'runserver' ]; then
-	exec gosu minime "$@"
+	exec minime "$@"
 fi
 
 exec "$@"
