@@ -64,7 +64,4 @@ target/
 example/
 profiler/
 .idea
-tests/
-requirements_tests.txt
 .gitignore
-pytest.ini
