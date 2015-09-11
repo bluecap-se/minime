@@ -28,7 +28,9 @@ SECRET_KEY = envsettings.get('DJANGO_SECRET_KEY', 'local')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = envsettings.get_bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0'
+]
 
 
 # Application definition
@@ -53,7 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'minime.urls'
+ROOT_URLCONF = 'app.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'minime.wsgi.application'
+WSGI_APPLICATION = 'app.wsgi.application'
 
 
 # Database
