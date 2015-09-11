@@ -30,7 +30,6 @@ setup(
     platforms='any',
     packages=['minime'],
     install_requires=requirements,
-    scripts=['bin/minime'],
     keywords=['mini', 'minime', 'url', 'short', 'tiny'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

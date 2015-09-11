@@ -36,32 +36,13 @@ Starting development server at http://0.0.0.0:8000/
 Quit the server with CONTROL-C.
 ```
 
-### Options
-
-```console
-$ minime -h
-
-MiniMe - An online URL shortener
-
-Usage:
-      minime runserver [options]
-
-Options:
-  -d, --develop             Run server in development mode.
-  -h, --help                Output this help and exit
-  --version                 Output version and exit
-
-Examples:
-  minime runserver -d
-```
-
 
 ## Run tests
 
 ### Regular tests
 
 ```console
-$ pip install -r requirements_test.txt
+$ pip install -r test_requirements.txt
 $ py.test
 ```
 

@@ -13,4 +13,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 8000
 
-CMD ["runserver"]
+CMD ["runwsgi"]
