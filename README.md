@@ -1,10 +1,10 @@
 # MiniMe
 
-[![Build Status](https://travis-ci.org/bluecap-se/minime.svg)](https://travis-ci.org/bluecap-se/minime)
-[![Dependency Status](https://gemnasium.com/bluecap-se/minime.svg)](https://gemnasium.com/bluecap-se/minime)
-[![PyPI version](https://badge.fury.io/py/minime.svg)](http://badge.fury.io/py/minime)
+[![Circle CI](https://img.shields.io/circleci/project/bluecap-se/minime.svg?style=flat-square)](https://circleci.com/gh/bluecap-se/minime)
+[![Dependency Status](https://img.shields.io/gemnasium/bluecap-se/minime.svg?style=flat-square)](https://gemnasium.com/bluecap-se/minime)
+[![Docker pulls](https://img.shields.io/docker/pulls/bluecap/minime.svg?style=flat-square)](https://registry.hub.docker.com/u/bluecap/minime/)
 
-An online URL shortener
+An online URL shortener.
 
 ## Install
 
@@ -12,12 +12,6 @@ An online URL shortener
 
 ```console
 $ docker run -d -p 80:8000 bluecap/minime:latest
-```
-
-### Using a package manager
-
-```console
-$ pip install minime
 ```
 
 ### From source
