@@ -19,8 +19,8 @@ $ docker run -d -p 80:8000 bluecap/minime:latest
 ```console
 $ git clone https://github.com/bluecap-se/minime.git
 $ cd minime
-$ pip install -r requirements.txt
-$ pip install -e .
+$ docker build -t bluecap/minime .
+$ docker run -d -p 80:8000 bluecap/minime:latest
 ```
 
 ## Usage
