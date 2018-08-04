@@ -9,6 +9,9 @@ django-envsettings = "==1.1.0"
 uWSGI = "==2.0.17.1"
 
 [dev-packages]
+coverage = "==4.5.1"
+pytest = "==3.7.1"
+pytest-pep8 = "==1.0.6"
 
 [requires]
 python_version = "3.7"

@@ -4,8 +4,7 @@ MAINTAINER bluecap
 
 WORKDIR /minime
 COPY . /minime
-RUN pipenv install \
-    && pip install -r test_requirements.txt
+RUN pipenv install --three --dev
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
