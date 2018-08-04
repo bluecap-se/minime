@@ -1,4 +1,4 @@
-# Minime
+# MiniMe
 
 [![Travis](https://img.shields.io/travis/bluecap-se/minime.svg)](https://travis-ci.org/bluecap-se/minime)
 ![Status](https://img.shields.io/badge/status-WIP-orange.svg)
