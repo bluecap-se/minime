@@ -6,14 +6,14 @@
 ![Platform](https://img.shields.io/badge/platform-win%20%7C%20lin%20%7C%20osx-lightgrey.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-The last link shortener you'll need.
+The last link shortener you'll ever need.
 
 ## Install and run
 
 ### Run with Docker
 
 The preferred method is to run the project inside a Docker container.
-There are currently no images available on Docker Hub, but it's easy to build.
+There are currently no images available on Docker Hub, but it's easy to build yourself.
 
 ```
 $ git clone git@github.com:bluecap-se/minime.git
