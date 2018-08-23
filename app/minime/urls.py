@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
+from django.conf.urls import url
 
-from django.conf.urls import include, url
+from . import views
 
-
+app_name = 'minime'
 urlpatterns = [
-    url(r'^$', 'index', name='home'),
-    url(r'^(?P<short_id>\w{4})$', 'redirectOriginal', name='redirectOriginal'),
-    url(r'^makeshort/$', 'shortenUrl', name='shortenUrl'),
+    url(r'^$', views.index, name='home'),
+    url(r'^r/(?P<short_id>\w{6})$', views.redirect, name='redirect'),
+    url(r'^shorten/$', views.shorten_url, name='shorten'),
 ]
