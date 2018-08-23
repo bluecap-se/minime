@@ -25,6 +25,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_URL = ''
 
 # Application definition
 
@@ -57,7 +58,6 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
