@@ -10,7 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import environ
 import os
+
+from urlparse import urlparse
+
+
+root = environ.Path(__file__) - 2
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,17 +26,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-SECRET_KEY = '_i(zqa*%_(0orz1^deq*!h2ng$to85m@9ufj!5h#jjd_0eycyd'
+SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not-safe-for-production')
 
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
 ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
 
 SITE_URL = ''
 
 # Application definition
 
 INSTALLED_APPS = [
+    'raven.contrib.django.raven_compat',
+
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -46,6 +57,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+
+    # Django Debug Toolbar
+    MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    INSTALLED_APPS += ('debug_toolbar',)
+else:
+
+    # Sentry
+    INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
+
 
 ROOT_URLCONF = 'app.urls'
 
@@ -69,12 +91,8 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db('DATABASE_MASTER_URL', default='sqlite:///db.sqlite3'),
 }
 
 
@@ -95,6 +113,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Raven config for Sentry error logging
+RAVEN_CONFIG = {
+    'dsn': env.str('SENTRY_DNS', ''),
+}
 
 
 # Internationalization
