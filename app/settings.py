@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import environ
 import os
 
-from urlparse import urlparse
-
 
 root = environ.Path(__file__) - 2
 env = environ.Env()
@@ -49,7 +47,21 @@ INSTALLED_APPS = [
     'app.minime',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = []
+
+if DEBUG:
+
+    # Django Debug Toolbar
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    INSTALLED_APPS += ['debug_toolbar']
+    DEBUG_TOOLBAR_CONFIG = dict(SHOW_TOOLBAR_CALLBACK=lambda req: True)
+else:
+
+    # Sentry
+    INSTALLED_APPS += ['raven.contrib.django.raven_compat']
+
+
+MIDDLEWARE += [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,16 +69,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-if DEBUG:
-
-    # Django Debug Toolbar
-    MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-    INSTALLED_APPS += ('debug_toolbar',)
-else:
-
-    # Sentry
-    INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
 
 
 ROOT_URLCONF = 'app.urls'
