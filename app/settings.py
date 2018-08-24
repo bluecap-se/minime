@@ -37,8 +37,6 @@ SITE_URL = ''
 # Application definition
 
 INSTALLED_APPS = [
-    'raven.contrib.django.raven_compat',
-
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
