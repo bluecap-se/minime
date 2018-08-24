@@ -154,7 +154,7 @@ STATICFILES_FINDERS = [
 
 STATIC_PRECOMPILER_COMPILERS = (
     ('static_precompiler.compilers.LESS', {
-        "executable": "lesscpy",
+        'executable': 'lesscpy',
     }),
 )
 
