@@ -1,12 +1,14 @@
 
-import random, string, json
-
-from .forms import ShortenURLForm
-from .models import Urls
+import json
+import random
+import string
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+
+from .forms import ShortenURLForm
+from .models import Urls
 
 
 def index(request):
