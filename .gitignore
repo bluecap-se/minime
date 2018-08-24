@@ -60,6 +60,6 @@ target/
 
 # Own
 .idea
+static-files
 .webassets-cache
-app/static/static/
 *.sqlite3
