@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import django_heroku
 import environ
 
 
-root = environ.Path(__file__) - 2
+root = BASE_DIR = environ.Path(__file__) - 2
 env = environ.Env()
 
 
@@ -24,11 +25,10 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not-safe-for-production')
 
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = []
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
-SITE_URL = ''
+SITE_URL = env.str('SERVER_URL', '')
+
 
 # Application definition
 
@@ -66,6 +66,9 @@ MIDDLEWARE += [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Third-party
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 
@@ -141,6 +144,8 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = root('static-files')
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -152,3 +157,7 @@ STATIC_PRECOMPILER_COMPILERS = (
         "executable": "lesscpy",
     }),
 )
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

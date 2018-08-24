@@ -18,4 +18,4 @@
 .dockerignore
 Dockerfile
 .idea
-static-files
+staticfiles

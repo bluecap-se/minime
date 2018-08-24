@@ -14,4 +14,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8000
 
-CMD ["runwsgi"]
+CMD ["runserver"]
