@@ -1,5 +1,5 @@
 language: python
 python:
   - "3.6"
-install: pipenv install --system --deploy
+install: pip install pipenv==2018.7.1 && pipenv install --system --deploy
 script: python manage.py test
