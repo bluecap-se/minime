@@ -1,0 +1,16 @@
+version: "3"
+services:
+    minime:
+        build: ./
+        container_name: minime
+        restart: always
+        ports:
+            - "8000:8000"
+        environment:
+            - DJANGO_DEBUG=True
+            - SERVER_URL=http://127.0.0.1
+        command: ["runserver"]
+
+networks:
+    default:
+        driver: bridge

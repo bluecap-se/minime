@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.6"
+before_install:
+  - pip install pipenv==2018.7.1
+install:
+  - pipenv install --system --deploy
+  - python manage.py migrate
+script: python manage.py test

@@ -1,9 +1,13 @@
-# -*- coding: utf-8 -*-
+from django.conf import settings
+from django.urls import include, path
 
-from django.conf.urls import include, url
-from django.contrib import admin
 
 urlpatterns = [
-    #url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('minime.urls', namespace='minime')),
+    path(r'', include('app.minime.urls')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path(r'__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

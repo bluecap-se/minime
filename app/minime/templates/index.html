@@ -1,0 +1,56 @@
+{% load compile_static %}
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="The last link shortener you'll ever need.">
+    <meta name="author" content="Bluecap">
+
+    <title>{% block title %}MiniMe{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static "styles.less"|compile %}" />
+</head>
+<body>
+
+    <form class="form-shorten" action="{% url 'minime:shorten' %}" method="post">
+        {% csrf_token %}
+
+        <div class="text-center mb-4">
+            <img class="mb-4" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">MiniMe</h1>
+            <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+        </div>
+
+        <div class="form-label-group">
+            {{ form.url }}
+            <label for="id_url">URL to shorten</label>
+        </div>
+
+        <!--
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Use password
+            </label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <label for="inputPassword">Password</label>
+        </div>
+        -->
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Shorten</button>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+    </form>
+
+</body>
+</html>
