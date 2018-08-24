@@ -159,5 +159,5 @@ STATIC_PRECOMPILER_COMPILERS = (
 )
 
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+# Activate Django-Heroku
+django_heroku.settings(locals(), test_runner=False)
