@@ -4,10 +4,13 @@ MAINTAINER bluecap
 
 WORKDIR /minime
 COPY . /minime
-RUN pipenv install --three --dev
 
-COPY docker-entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/sbin/
+
+RUN pip install pipenv==2018.7.1 && \
+    pipenv install --system --deploy
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8000
 

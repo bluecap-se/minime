@@ -8,7 +8,6 @@
 *.orig
 *.cfg
 *.tox
-*.lock
 *.cache
 .DS_Store
 

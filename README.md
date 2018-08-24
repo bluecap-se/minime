@@ -3,6 +3,7 @@
 [![Travis](https://img.shields.io/travis/bluecap-se/minime.svg)](https://travis-ci.org/bluecap-se/minime)
 ![Status](https://img.shields.io/badge/status-WIP-orange.svg)
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.7-blue.svg)
+[![Docker pulls](https://img.shields.io/docker/pulls/bluecap/minime.svg?style=flat-square)](https://registry.hub.docker.com/u/bluecap/minime/)
 ![Platform](https://img.shields.io/badge/platform-win%20%7C%20lin%20%7C%20osx-lightgrey.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
@@ -13,14 +14,12 @@ The last link shortener you'll ever need.
 ### Run with Docker
 
 The preferred method is to run the project inside a Docker container.
-There are currently no images available on Docker Hub, but it's easy to build yourself.
 
 ```
 $ git clone git@github.com:bluecap-se/minime.git
 $ cd minime
-$ docker build -t bluecap/minime .
-$ docker run -d -p 80:8000 bluecap/minime:latest
-$ open localhost
+$ docker-compose up -d
+$ open http://127.0.0.1:8000/
 ```
 
 ## Run on local machine
@@ -33,6 +32,7 @@ $ git clone git@github.com:bluecap-se/minime.git
 $ cd minime
 $ pipenv install --three
 $ pipenv shell
+$ python manage.py migrate
 $ python manage.py runserver &
 $ open http://127.0.0.1:8000/
 ```
@@ -42,16 +42,7 @@ $ open http://127.0.0.1:8000/
 ### Regular tests
 
 ```
-$ pipenv install --dev
-$ py.test
-```
-
-### Watch for changes
-
-To run the tests continuously, run the test command with the watch or follow flag `-f`:
-
-```
-$ py.test -f
+$ python manage.py test
 ```
 
 ### Test coverage
