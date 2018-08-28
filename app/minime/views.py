@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
 from .forms import ShortenURLForm
-from .models import Urls
+from .models import Url
 
 
 def index(request):
@@ -16,7 +16,7 @@ def index(request):
 
 
 def redirect(request, short_id):
-    url = get_object_or_404(Urls, pk=short_id)  # gets object, if not found returns 404 error
+    url = get_object_or_404(Url, pk=short_id)  # gets object, if not found returns 404 error
     url.count += 1
     url.save()
 
@@ -46,6 +46,6 @@ def get_short_code():
     while True:
         short_id = ''.join(random.choice(char) for x in range(length))
         try:
-            Urls.objects.get(pk=short_id)
+            Url.objects.get(pk=short_id)
         except:
             return short_id

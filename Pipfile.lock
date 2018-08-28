@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c8282b8cf111bceed7e9b54f9670edba8c540c1a59a07999dd7128d95dde8dce"
+            "sha256": "b891258a070adbf186a82f070ee4579b93d3814ea492d293e7598bf4db918486"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -31,6 +31,14 @@
             "index": "pypi",
             "version": "==2.1"
         },
+        "django-cacheops": {
+            "hashes": [
+                "sha256:176655c2f0947b5c12765eb223c4f32032e1833f980a754ffce188d0bd20950a",
+                "sha256:feca7ad2a148857d5128aa3e635a4f2572e839919ffffa9a9d720766e7479e6b"
+            ],
+            "index": "pypi",
+            "version": "==4.0.7"
+        },
         "django-debug-toolbar": {
             "hashes": [
                 "sha256:4af2a4e1e932dadbda197b18585962d4fc20172b4e5a479490bc659fe998864d",
@@ -55,12 +63,26 @@
             "index": "pypi",
             "version": "==0.3.1"
         },
+        "django-redis-cache": {
+            "hashes": [
+                "sha256:2b4e3510bbcaf3d331975717afd6f15a36fbaf7622504599d2727dc99f90c64d"
+            ],
+            "index": "pypi",
+            "version": "==1.7.1"
+        },
         "django-static-precompiler": {
             "hashes": [
                 "sha256:e4880e9bec5e64ea17f68f0787dc636e7c33a9dd68f497c5dd3733ca3e390bb2"
             ],
             "index": "pypi",
             "version": "==1.8.2"
+        },
+        "funcy": {
+            "hashes": [
+                "sha256:1d973a2010dc9c7506743f2944ec8b76254111f28b199498705ff298ff3180f3",
+                "sha256:544412beb2bc1d7d370f54d5ca86e6c27df4281a3a6c13cce72ea5ab46d254eb"
+            ],
+            "version": "==1.10.3"
         },
         "gunicorn": {
             "hashes": [
@@ -134,6 +156,13 @@
             ],
             "index": "pypi",
             "version": "==6.9.0"
+        },
+        "redis": {
+            "hashes": [
+                "sha256:8a1900a9f2a0a44ecf6e8b5eb3e967a9909dfed219ad66df094f27f7d6f330fb",
+                "sha256:a22ca993cea2962dbb588f9f30d0015ac4afcc45bee27d3978c0dbe9e97c6c0f"
+            ],
+            "version": "==2.10.6"
         },
         "six": {
             "hashes": [

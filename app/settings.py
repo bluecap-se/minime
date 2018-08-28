@@ -99,6 +99,19 @@ DATABASES = {
 }
 
 
+# Redis cache
+CACHES = {
+    'default': env.cache('REDIS_URL', default=None),
+}
+
+CACHEOPS_REDIS = env.str('REDIS_URL', '')
+
+CACHEOPS = {
+    # Automatically cache all gets and queryset fetches for Url
+    'minime.url': {'ops': 'get', 'timeout': 3600},
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
