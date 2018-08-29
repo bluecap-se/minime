@@ -10,13 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import django_heroku
 import environ
 
 
 root = BASE_DIR = environ.Path(__file__) - 2
 env = environ.Env()
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -25,7 +23,7 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not-safe-for-production')
 
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*'] if DEBUG else [env.str('SERVER_DOMAIN', None)]
+ALLOWED_HOSTS = ['*'] if DEBUG else ['localhost', '127.0.0.1', '[::1]']
 
 SITE_URL = env.str('SERVER_URL', '')
 
@@ -60,15 +58,16 @@ else:
 
 
 MIDDLEWARE += [
+    # Third-party
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
+    # Default
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # Third-party
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 
@@ -146,11 +145,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATICFILES_STORAGE = 'app.minime.storage.WhiteNoiseStaticFilesStorage'
+
 STATIC_URL = '/static/'
 
-STATIC_ROOT = root('static-files')
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = root('staticfiles')
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -163,7 +162,3 @@ STATIC_PRECOMPILER_COMPILERS = (
         'executable': 'lesscpy',
     }),
 )
-
-
-# Activate Django-Heroku
-django_heroku.settings(locals(), test_runner=False)

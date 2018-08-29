@@ -9,6 +9,8 @@
     <meta name="robots" content="noindex,nofollow" />
     <meta name="description" content="The last link shortener you'll ever need.">
     <meta name="author" content="Bluecap">
+    <link rel="shortcut icon" href="{% static "images/favicon.png" %}" type="image/x-icon">
+    <link rel="icon" href="{% static "images/favicon.png" %}" type="image/x-icon">
 
     <title>{% block title %}MiniMe{% endblock %}</title>
 
@@ -17,7 +19,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static "styles.less"|compile %}" />
+    <link rel="stylesheet" href="{% static "styles/head.less"|compile %}" />
 </head>
 <body>
 
