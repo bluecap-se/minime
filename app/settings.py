@@ -23,7 +23,7 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not-safe-for-production')
 
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*'] if DEBUG else ['localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['*'] if DEBUG else env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '[::1]'])
 
 SITE_URL = env.str('SERVER_URL', '')
 
