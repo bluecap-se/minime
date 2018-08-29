@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Urls',
+            name='Url',
             fields=[
                 ('short_id', models.SlugField(max_length=6, primary_key=True, serialize=False)),
                 ('httpurl', models.URLField(max_length=2048)),

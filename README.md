@@ -2,6 +2,7 @@
 
 [![Travis](https://img.shields.io/travis/bluecap-se/minime.svg)](https://travis-ci.org/bluecap-se/minime)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
+[![Coverage Status](https://coveralls.io/repos/github/bluecap-se/minime/badge.svg?branch=develop)](https://coveralls.io/github/bluecap-se/minime?branch=develop)
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.6-blue.svg)
 [![Docker pulls](https://img.shields.io/docker/pulls/bluecap/minime.svg)](https://registry.hub.docker.com/u/bluecap/minime/)
 ![Platform](https://img.shields.io/badge/platform-win%20%7C%20lin%20%7C%20osx-lightgrey.svg)
@@ -37,18 +38,32 @@ $ python manage.py runserver &
 $ open http://127.0.0.1:8000/
 ```
 
+## Deployment
+
+This project is setup to be deployed on Heroku platform. Check how to deploy to
+Heroku on https://devcenter.heroku.com/categories/python-support
+
 ## Run tests
 
 ### Regular tests
+
+Tests can be run in Docker or on the host.
 
 ```
 $ python manage.py test
 ```
 
+...or in a running docker container:
+
+```
+$ docker exec mini_app python manage.py test
+```
+
 ### Test coverage
 
 ```
-$ coverage run --source minime -m py.test
+$ pipenv install --dev
+$ coverage run --source='.' manage.py test app.minime
 $ coverage html
 $ open htmlcov/index.html
 ```

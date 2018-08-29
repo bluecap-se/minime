@@ -25,7 +25,7 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not-safe-for-production')
 
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] if DEBUG else [env.str('SERVER_DOMAIN', None)]
 
 SITE_URL = env.str('SERVER_URL', '')
 
@@ -96,6 +96,21 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
     'default': env.db('DATABASE_MASTER_URL', default='sqlite:///db.sqlite3'),
+}
+
+
+# Redis cache
+local_redis = 'rediscache://127.0.0.1:6379/1?client_class=django_redis.client.DefaultClient&compressor=django_redis.compressors.zlib.ZlibCompressor'
+
+CACHES = {
+    'default': env.cache('REDIS_URL', default=local_redis),
+}
+
+CACHEOPS_REDIS = env.str('REDIS_URL', local_redis)
+
+CACHEOPS = {
+    # Automatically cache all gets and queryset fetches for Url
+    'minime.url': {'ops': 'get', 'timeout': 3600},
 }
 
 

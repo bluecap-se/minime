@@ -1,9 +1,15 @@
 language: python
 python:
   - "3.6"
+services:
+  - redis-server
 before_install:
   - pip install pipenv==2018.7.1
 install:
-  - pipenv install --system --deploy
+  - pipenv install --dev --system --deploy
   - python manage.py migrate
-script: python manage.py test
+script:
+  - python manage.py test
+  - coverage run --source='.' manage.py test app.minime
+after_success:
+  - coveralls
