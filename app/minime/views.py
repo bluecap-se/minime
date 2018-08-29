@@ -29,7 +29,7 @@ def shorten_url(request):
 
     if url:
         short_id = get_short_code()
-        b = Urls(httpurl=url, short_id=short_id)
+        b = Url(httpurl=url, short_id=short_id)
         b.save()
 
         response_data = dict(url='{}/{}'.format(settings.SITE_URL, short_id))
