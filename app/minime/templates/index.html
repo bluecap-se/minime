@@ -9,6 +9,8 @@
     <meta name="robots" content="noindex,nofollow" />
     <meta name="description" content="The last link shortener you'll ever need.">
     <meta name="author" content="Bluecap">
+    <link rel="shortcut icon" href="{% static "images/favicon.png" %}" type="image/x-icon">
+    <link rel="icon" href="{% static "images/favicon.png" %}" type="image/x-icon">
 
     <title>{% block title %}MiniMe{% endblock %}</title>
 
@@ -17,7 +19,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static "styles.less"|compile %}" />
+    <link rel="stylesheet" href="{% static "styles/main.less"|compile %}" />
 </head>
 <body>
 
@@ -25,7 +27,7 @@
         {% csrf_token %}
 
         <div class="text-center mb-4">
-            <img class="mb-4" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <img class="mb-4 logo" src="{% static "images/logo.png" %}" alt="" width="90" height="90">
             <h1 class="h3 mb-3 font-weight-normal">MiniMe</h1>
             <p>Lorem ipsum.</p>
         </div>
@@ -48,7 +50,6 @@
         -->
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Shorten</button>
-        <p class="mt-5 mb-3 text-muted text-center">&copy; 2018</p>
     </form>
 
 </body>
