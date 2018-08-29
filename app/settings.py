@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = []
 
-if DEBUG:
+if DEBUG and env.bool('DJT_ENABLED', False):
 
     # Django Debug Toolbar
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
