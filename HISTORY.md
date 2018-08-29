@@ -3,6 +3,7 @@
 
 ### Next
 
+- Added test coverage and coveralls.
 - Added redis cache.
 - Added ability to run app on Heroku.
 - Added ability to run app in Docker.
