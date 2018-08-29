@@ -2,7 +2,7 @@
 
 [![Travis](https://img.shields.io/travis/bluecap-se/minime.svg)](https://travis-ci.org/bluecap-se/minime)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
-[![Coverage Status](https://coveralls.io/repos/github/bluecap-se/minime/badge.svg)](https://coveralls.io/github/bluecap-se/minime)
+[![Coverage Status](https://coveralls.io/repos/github/bluecap-se/minime/badge.svg?branch=develop)](https://coveralls.io/github/bluecap-se/minime?branch=develop)
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.6-blue.svg)
 [![Docker pulls](https://img.shields.io/docker/pulls/bluecap/minime.svg)](https://registry.hub.docker.com/u/bluecap/minime/)
 ![Platform](https://img.shields.io/badge/platform-win%20%7C%20lin%20%7C%20osx-lightgrey.svg)
