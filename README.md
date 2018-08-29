@@ -37,7 +37,7 @@ $ python manage.py runserver &
 $ open http://127.0.0.1:8000/
 ```
 
-# Deployment
+## Deployment
 
 This project is setup to be deployed on Heroku platform. Check how to deploy to
 Heroku on https://devcenter.heroku.com/categories/python-support
@@ -46,8 +46,16 @@ Heroku on https://devcenter.heroku.com/categories/python-support
 
 ### Regular tests
 
+Tests can be run in Docker or on the host.
+
 ```
 $ python manage.py test
+```
+
+...or in a running docker container:
+
+```
+$ docker exec mini_app python manage.py test
 ```
 
 ### Test coverage
