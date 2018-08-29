@@ -61,7 +61,8 @@ $ docker exec mini_app python manage.py test
 ### Test coverage
 
 ```
-$ coverage run --source minime -m py.test
+$ pipenv install --dev
+$ coverage run --source='.' manage.py test app.minime
 $ coverage html
 $ open htmlcov/index.html
 ```
