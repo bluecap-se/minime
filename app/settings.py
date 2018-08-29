@@ -100,17 +100,8 @@ DATABASES = {
 
 
 # Redis cache
-local_redis = 'rediscache://127.0.0.1:6379/1?client_class=django_redis.client.DefaultClient&compressor=django_redis.compressors.zlib.ZlibCompressor'
-
 CACHES = {
-    'default': env.cache('REDIS_URL', default=local_redis),
-}
-
-CACHEOPS_REDIS = env.str('REDIS_URL', local_redis)
-
-CACHEOPS = {
-    # Automatically cache all gets and queryset fetches for Url
-    'minime.url': {'ops': 'get', 'timeout': 3600},
+    'default': env.cache('REDIS_URL', default='redis://127.0.0.1:6379/1'),
 }
 
 
