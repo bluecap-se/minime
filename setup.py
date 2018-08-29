@@ -23,7 +23,7 @@ setup(
     zip_safe=False,
     platforms='any',
     packages=['minime'],
-    install_requires=requirements,
+    install_requires=[],
     keywords=['mini', 'minime', 'url', 'short', 'tiny'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
