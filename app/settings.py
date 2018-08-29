@@ -25,7 +25,7 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not-safe-for-production')
 
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] if DEBUG else [env.str('SERVER_DOMAIN', None)]
 
 SITE_URL = env.str('SERVER_URL', '')
 
