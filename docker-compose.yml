@@ -1,8 +1,9 @@
 version: "3"
+
 services:
-    minime:
+    web:
         build: ./
-        container_name: minime
+        container_name: mini_app
         restart: always
         ports:
             - "8000:8000"
@@ -14,7 +15,7 @@ services:
 
     redis:
         image: redis
-        container_name: redis
+        container_name: mini_redis
         restart: always
         expose:
             - "6379"

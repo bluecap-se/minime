@@ -1,6 +1,8 @@
 language: python
 python:
   - "3.6"
+services:
+  - redis-server
 before_install:
   - pip install pipenv==2018.7.1
 install:
