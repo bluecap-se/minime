@@ -43,6 +43,19 @@ $ open http://127.0.0.1:8000/
 This project is setup to be deployed on Heroku platform. Check how to deploy to
 Heroku on https://devcenter.heroku.com/categories/python-support
 
+These environment variables are available:
+
+Variable              | Description                   | Default
+--------------------- | ----------------------------- | -------------
+DJANGO_DEBUG          | Debug mode                    | False
+DJANGO_SECRET_KEY     | Secret key                    | Change!
+DJT_ENABLED           | Should DJT be shown?          | False
+DATABASE_URL          | Database url                  | Local SQLite
+REDIS_URL             | URL to local redis cache      | Local redis
+SENTRY_DNS            | URL for Sentry error tracking | None
+ALLOWED_HOSTS         | Set to your domain            | Django default
+SERVER_URL            | Full domain of your site      | None
+
 ## Run tests
 
 ### Regular tests
