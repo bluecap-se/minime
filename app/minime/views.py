@@ -15,12 +15,12 @@ def index(request):
     return render(request, 'index.html', {'form': ShortenURLForm})
 
 
-def redirect(request, short_id):
-    url = get_object_or_404(Url, pk=short_id)  # gets object, if not found returns 404 error
+def redirect(request, hash):
+    url = get_object_or_404(Url, hash=hash)  # gets object, if not found returns 404 error
     url.count += 1
     url.save()
 
-    return HttpResponseRedirect(url.httpurl)
+    return HttpResponseRedirect(url.url)
 
 
 def shorten_url(request):
@@ -28,24 +28,31 @@ def shorten_url(request):
     url = request.POST.get('url', '')
 
     if url:
-        short_id = get_short_code()
-        b = Url(httpurl=url, short_id=short_id)
+        hash = get_hash()
+        b = Url(url=url, hash=hash)
         b.save()
 
-        response_data = dict(url='{}/{}'.format(settings.SITE_URL, short_id))
+        response_data = dict(url='{}/{}'.format(settings.SITE_URL, hash))
         return HttpResponse(json.dumps(response_data), content_type='application/json')
 
     return HttpResponse(json.dumps({'error': 'error occurs'}), content_type='application/json')
 
 
-def get_short_code():
+def get_hash():
+    """
+    Creates a unique hash
+
+    TODO: Check hash in redis
+
+    :return: Unique hash string
+    """
     length = 6
     char = string.ascii_uppercase + string.digits + string.ascii_lowercase
 
     # Generate a new ID, until one is found that is unique
     while True:
-        short_id = ''.join(random.choice(char) for x in range(length))
+        hash = ''.join(random.choice(char) for x in range(length))
         try:
-            Url.objects.get(pk=short_id)
+            Url.objects.get(hash=hash)
         except:
-            return short_id
+            return hash

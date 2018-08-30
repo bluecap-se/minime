@@ -14,10 +14,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Url',
             fields=[
-                ('short_id', models.SlugField(max_length=6, primary_key=True, serialize=False)),
-                ('httpurl', models.URLField(max_length=2048)),
-                ('pub_date', models.DateTimeField(auto_now=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('hash', models.SlugField(max_length=6)),
+                ('url', models.URLField(max_length=2048)),
+                ('created', models.DateTimeField(auto_now=True)),
                 ('count', models.IntegerField(default=0)),
             ],
+        ),
+        migrations.AddIndex(
+            model_name='url',
+            index=models.Index(fields=['hash'], name='minime_url_hash_c04475_idx'),
         ),
     ]
