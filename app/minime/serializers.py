@@ -1,6 +1,7 @@
 import string
 import random
 
+from django.contrib.auth import hashers
 from rest_framework import serializers
 
 from . import models
@@ -9,10 +10,11 @@ from . import utils
 
 class UrlSerializer(serializers.ModelSerializer):
     hash = serializers.SlugField(required=False)
+    password = serializers.CharField(required=False, write_only=True)
 
     class Meta:
         model = models.Url
-        fields = ('hash', 'url')
+        fields = ('hash', 'url', 'password')
 
     def create(self, data):
         """
@@ -22,6 +24,9 @@ class UrlSerializer(serializers.ModelSerializer):
         :return:
         """
         data['hash'] = self.create_hash()
+
+        if data.get('password', None):
+            data['password'] = hashers.make_password(data['password'])
 
         instance = super(UrlSerializer, self).create(data)
 

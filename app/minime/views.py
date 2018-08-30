@@ -1,6 +1,5 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-
 from rest_framework import generics
 
 from . import forms
@@ -14,7 +13,14 @@ def index(request):
 
 
 def redirect(request, hash):
+    """
+    Redirects to `Url.url` if it exists.
+    Checks in Redis cache first.
 
+    :param request:
+    :param hash:
+    :return:
+    """
     url = utils.cache_get_short_url(hash)
 
     if not url:
