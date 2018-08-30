@@ -2,12 +2,9 @@ import string
 import random
 
 from rest_framework import serializers
-from django.core.cache import cache
 
 from . import models
-
-cache_tmpl = 'short:url:{}'
-cache_ttl = 60 * 60 * 24 * 7  # 7 days
+from . import utils
 
 
 class UrlSerializer(serializers.ModelSerializer):
@@ -29,8 +26,8 @@ class UrlSerializer(serializers.ModelSerializer):
         instance = super(UrlSerializer, self).create(data)
 
         if instance:
-            cache.set(cache_tmpl.format(instance.hash), instance.url, cache_ttl)
-            cache.set('hash:taken:{}'.format(instance.hash), 1, None)
+            utils.cache_set_url(instance.hash, instance.url)
+            utils.cache_set_hash_taken(instance.hash)
 
         return instance
 
@@ -39,8 +36,6 @@ class UrlSerializer(serializers.ModelSerializer):
         """
         Creates a unique hash
 
-        TODO: Check hash in redis
-
         :return: Unique hash string
         """
         length = 6
@@ -48,7 +43,7 @@ class UrlSerializer(serializers.ModelSerializer):
 
         # Generate a new ID, until one is found that is unique
         while True:
-            hash = ''.join(random.choice(char) for x in range(length))
+            hash = ''.join(random.choice(char) for _ in range(length))
 
-            if not cache.get('hash:taken:{}'.format(hash)):
+            if not utils.cache_is_hash_taken(hash):
                 return hash

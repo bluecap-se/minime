@@ -1,4 +1,3 @@
-from django.core.cache import cache
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
@@ -7,10 +6,7 @@ from rest_framework import generics
 from . import forms
 from . import models
 from . import serializers
-
-
-cache_tmpl = 'short:url:{}'
-cache_ttl = 60 * 60 * 24 * 7  # 7 days
+from . import utils
 
 
 def index(request):
@@ -19,12 +15,12 @@ def index(request):
 
 def redirect(request, hash):
 
-    url = cache.get(cache_tmpl.format(hash))
+    url = utils.cache_get_short_url(hash)
 
     if not url:
         urlobj = get_object_or_404(models.Url, hash=hash)  # gets object, if not found returns 404 error
         url = urlobj.url
-        cache.set('short:url:{}'.format(hash), url, cache_ttl)
+        utils.cache_set_url(hash, url)
 
     return HttpResponseRedirect(url)
 
