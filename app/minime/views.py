@@ -1,13 +1,12 @@
-import json
-
 from django.core.cache import cache
-from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+
+from rest_framework import generics
 
 from . import forms
 from . import models
-from . import utils
+from . import serializers
 
 
 cache_tmpl = 'short:url:{}'
@@ -30,19 +29,6 @@ def redirect(request, hash):
     return HttpResponseRedirect(url)
 
 
-def shorten_url(request):
-
-    url = request.POST.get('url', '')
-
-    if url:
-        hash = utils.get_hash()
-        b = models.Url(url=url, hash=hash)
-        b.save()
-
-        cache.set(cache_tmpl.format(hash), url, cache_ttl)
-        cache.set('hash:taken:{}'.format(hash), 1, None)
-
-        response_data = dict(url='{}/{}'.format(settings.SITE_URL, hash))
-        return HttpResponse(json.dumps(response_data), content_type='application/json')
-
-    return HttpResponse(json.dumps({'error': 'error occurs'}), content_type='application/json')
+class CreateShortUrl(generics.CreateAPIView):
+    queryset = models.Url.objects.all()
+    serializer_class = serializers.UrlSerializer

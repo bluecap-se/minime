@@ -31,6 +31,7 @@ SITE_URL = env.str('SERVER_URL', '')
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
 
     # Third-party
     'static_precompiler',
+    'rest_framework',
 
     # Own
     'app.minime',
