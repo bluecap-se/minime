@@ -25,8 +25,6 @@ DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*'] if DEBUG else env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '[::1]'])
 
-SITE_URL = env.str('SERVER_URL', '')
-
 
 # Application definition
 

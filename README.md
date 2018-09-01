@@ -54,7 +54,6 @@ DATABASE_URL          | Database url                  | Local SQLite
 REDIS_URL             | URL to local redis cache      | Local redis
 SENTRY_DNS            | URL for Sentry error tracking | None
 ALLOWED_HOSTS         | Set to your domain            | Django default
-SERVER_URL            | Full domain of your site      | None
 
 ## Run tests
 
