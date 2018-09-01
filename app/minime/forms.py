@@ -11,3 +11,12 @@ class ShortenURLForm(forms.Form):
             'class': 'form-control',
         })
     )
+
+    password = forms.URLField(
+        required=False,
+        label='Password',
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Password',
+            'class': 'form-control',
+        })
+    )

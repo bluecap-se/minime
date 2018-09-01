@@ -1,51 +1,38 @@
-
-import json
-import random
-import string
-
-from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from rest_framework import generics
 
-from .forms import ShortenURLForm
-from .models import Url
+from . import forms
+from . import models
+from . import serializers
+from . import utils
 
 
 def index(request):
-    return render(request, 'index.html', {'form': ShortenURLForm})
+    return render(request, 'index.html', {'form': forms.ShortenURLForm})
 
 
-def redirect(request, short_id):
-    url = get_object_or_404(Url, pk=short_id)  # gets object, if not found returns 404 error
-    url.count += 1
-    url.save()
+def redirect(request, hash):
+    """
+    Redirects to `Url.url` if it exists.
+    Checks in Redis cache first.
 
-    return HttpResponseRedirect(url.httpurl)
+    :param request:
+    :param hash:
+    :return:
+    """
+    url = utils.cache_get_short_url(hash)
 
+    if not url:
+        urlobj = get_object_or_404(models.Url, hash=hash)  # gets object, if not found returns 404 error
+        url = urlobj.url
+        utils.cache_set_url(hash, url)
 
-def shorten_url(request):
+    utils.create_stats(request, hash)
 
-    url = request.POST.get('url', '')
-
-    if url:
-        short_id = get_short_code()
-        b = Url(httpurl=url, short_id=short_id)
-        b.save()
-
-        response_data = dict(url='{}/{}'.format(settings.SITE_URL, short_id))
-        return HttpResponse(json.dumps(response_data), content_type='application/json')
-
-    return HttpResponse(json.dumps({'error': 'error occurs'}), content_type='application/json')
+    return HttpResponseRedirect(url)
 
 
-def get_short_code():
-    length = 6
-    char = string.ascii_uppercase + string.digits + string.ascii_lowercase
-
-    # Generate a new ID, until one is found that is unique
-    while True:
-        short_id = ''.join(random.choice(char) for x in range(length))
-        try:
-            Url.objects.get(pk=short_id)
-        except:
-            return short_id
+class CreateShortUrl(generics.CreateAPIView):
+    queryset = models.Url.objects.all()
+    serializer_class = serializers.UrlSerializer

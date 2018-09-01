@@ -25,12 +25,11 @@ DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*'] if DEBUG else env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '[::1]'])
 
-SITE_URL = env.str('SERVER_URL', '')
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -38,6 +37,8 @@ INSTALLED_APPS = [
 
     # Third-party
     'static_precompiler',
+    'rest_framework',
+    'django_user_agents',
 
     # Own
     'app.minime',
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = []
 
-if DEBUG:
+if DEBUG and env.bool('DJT_ENABLED', False):
 
     # Django Debug Toolbar
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
@@ -58,16 +59,16 @@ else:
 
 
 MIDDLEWARE += [
-    # Third-party
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-
-    # Default
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Third-party
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 
@@ -145,7 +146,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATICFILES_STORAGE = 'app.minime.storage.WhiteNoiseStaticFilesStorage'
+STATICFILES_STORAGE = 'app.storage.WhiteNoiseStaticFilesStorage'
 
 STATIC_URL = '/static/'
 
