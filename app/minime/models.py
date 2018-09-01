@@ -14,3 +14,14 @@ class Url(models.Model):
         indexes = [
             models.Index(fields=['hash'])
         ]
+
+
+class Visitors(models.Model):
+    url = models.ForeignKey(Url, on_delete=models.CASCADE)
+    browser_family = models.CharField(max_length=100)
+    browser_version = models.CharField(max_length=100)
+    os_family = models.CharField(max_length=100)
+    os_version = models.CharField(max_length=100)
+    device = models.CharField(max_length=100)
+    platform = models.CharField(max_length=100)
+    is_mobile = models.BooleanField()

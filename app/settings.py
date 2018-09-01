@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Third-party
     'static_precompiler',
     'rest_framework',
+    'django_user_agents',
 
     # Own
     'app.minime',
@@ -60,16 +61,16 @@ else:
 
 
 MIDDLEWARE += [
-    # Third-party
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-
-    # Default
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Third-party
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 

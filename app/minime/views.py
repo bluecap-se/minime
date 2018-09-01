@@ -28,6 +28,8 @@ def redirect(request, hash):
         url = urlobj.url
         utils.cache_set_url(hash, url)
 
+    utils.create_stats(request, hash)
+
     return HttpResponseRedirect(url)
 
 

@@ -3,6 +3,7 @@
 
 ### Next
 
+- Save visitor stats on redirect. 
 - Added password protection.
 - Added Django Rest Framework.
 - Added test coverage and coveralls.
