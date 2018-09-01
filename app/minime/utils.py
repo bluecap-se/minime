@@ -20,6 +20,15 @@ def cache_is_hash_taken(hash):
 
 
 def create_stats(request, hash):
+    """
+    Creates stats for redirection hash
+
+    TODO: Run this function async with Celery
+
+    :param request: Request object
+    :param hash: Redirect hash
+    :return: Created `Visitor` db object
+    """
     urlobj = models.Url.objects.get(hash=hash)
 
     if not urlobj:
@@ -48,3 +57,5 @@ def create_stats(request, hash):
     )
 
     visitor_obj.save()
+
+    return visitor_obj
