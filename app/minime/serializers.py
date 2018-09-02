@@ -20,8 +20,8 @@ class UrlSerializer(serializers.ModelSerializer):
         """
         Overrides super method.
 
-        :param data:
-        :return:
+        :param data: Data object
+        :return: DB instance
         """
         data['hash'] = self.create_hash()
 
