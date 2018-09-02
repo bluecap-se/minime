@@ -23,31 +23,59 @@
 </head>
 <body>
 
-    <form class="form-shorten" action="{% url 'minime:shorten' %}" method="post">
+    <form id="formShorten" class="form-shorten" action="{% url 'minime:shorten' %}" method="post">
         {% csrf_token %}
 
-        <div class="text-center mb-4">
-            <img class="mb-4 logo" src="{% static "images/logo.png" %}" alt="" width="90" height="90">
+        <header class="text-center mb-4">
+            <img class="mb-4 logo" src="{% static "images/logo.png" %}" alt="Minime logo" width="90" height="90">
             <h1 class="h3 mb-3 font-weight-normal">MiniMe</h1>
-            <p>Lorem ipsum.</p>
-        </div>
+            <p>Shinking that link of yours.</p>
+        </header>
 
-        <div class="form-label-group">
-            {{ form.url }}
-        </div>
+        <article class="panel url-form">
+            <div class="form-label-group">
+                {{ form.url }}
+            </div>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="use-password"> Use password
-            </label>
-        </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="use-password" id="usePassword"> I want to gather stats
+                </label>
+            </div>
 
-        <div class="form-label-group">
-            {{ form.password }}
-        </div>
+            <div id="formPasswordField" class="form-label-group hidden">
+                {{ form.password }}
+            </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Shorten</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Shink</button>
+        </article>
+
+        <article class="panel result">
+            <p class="text-center" style="padding-top: 10px">
+                <img src="{% static "images/done-icon.png" %}" width="60">
+            </p>
+            <p class="text-center">
+                <b>Here is your new URL:<br>
+                <a href="" id="hash"></a></b>
+                <i id="copyUrl" class="btn-copy" title="Copy URL to clipboard">
+                    <img src="{% static "images/copy-icon.svg" %}" width="13" height="15">
+                    <span id="labelCopied" class="label-copied">copied</span>
+                </i>
+            </p>
+            <p class="text-center" style="font-size:.8rem">
+                Login here to check your stats:<br>
+                <a href="" id="hashAdmin"></a>
+            </p>
+        </article>
+
+        <footer>
+            <p class="mt-3 mb-2 text-muted text-center">Made by <a href="https://bluecap.se" target="_blank">Bluecap</a></p>
+        </footer>
     </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
+    <script src="{% static "scripts/main.js" %}"></script>
 
 </body>
 </html>
