@@ -101,7 +101,7 @@ DATABASES = {
 
 # Redis cache
 CACHES = {
-    'default': env.cache('REDIS_URL', default='redis://127.0.0.1:6379/1'),
+    'default': env.cache('REDIS_URL', default='locmemcache://'),
 }
 
 

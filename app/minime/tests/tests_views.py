@@ -1,7 +1,7 @@
+from django.core.cache import cache
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -35,10 +35,13 @@ class ViewRedirectTestCase(TestCase):
 
     def test_pass(self):
         self.assertEqual(models.Visitors.objects.filter(url=self.url_obj).count(), 0)
+        self.assertIsNone(cache.get('short:url:{}'.format(self.hash)))
 
         response = self.client.get(reverse('minime:redirect', kwargs=dict(hash=self.hash)))
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(response._headers['location'][1], self.url)
+
+        self.assertEqual(cache.get('short:url:{}'.format(self.hash)), self.url)
 
         self.assertEqual(models.Visitors.objects.filter(url=self.url_obj).count(), 1)
 
