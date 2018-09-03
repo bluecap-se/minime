@@ -3,6 +3,7 @@
 
 ### Next
 
+- Updated frontend functionality.
 - Save visitor stats on redirect. 
 - Added password protection.
 - Added Django Rest Framework.

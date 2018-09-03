@@ -16,7 +16,7 @@ class ShortenURLForm(forms.Form):
         required=False,
         label='Password',
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Password',
+            'placeholder': 'Set a password',
             'class': 'form-control',
         })
     )

@@ -101,7 +101,7 @@ DATABASES = {
 
 # Redis cache
 CACHES = {
-    'default': env.cache('REDIS_URL', default='redis://127.0.0.1:6379/1'),
+    'default': env.cache('REDIS_URL', default='locmemcache://'),
 }
 
 
@@ -122,6 +122,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
 
 # Raven config for Sentry error logging
 RAVEN_CONFIG = {

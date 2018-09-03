@@ -34,8 +34,51 @@ body {
         position: relative;
         margin-bottom: 1rem;
     }
+
+    label {
+        cursor: pointer;
+    }
 }
 
 .logo {
     border-radius: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.panel {
+    height: 210px;
+
+    &.url-form {
+
+    }
+
+    &.result {
+        display: none;
+        background-color: #fafafa;
+
+        .btn-copy {
+            display: inline-block;
+            top: -2px;
+            position: relative;
+            left: 5px;
+            cursor: pointer;
+        }
+
+        .label-copied {
+            display: none;
+            position: absolute;
+            font-size: .7rem;
+            color: #666;
+            top: 6px;
+            left: 17px;
+        }
+    }
+}
+
+footer p,
+label {
+    font-size: .8rem;
 }
