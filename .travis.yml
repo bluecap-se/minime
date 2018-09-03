@@ -8,6 +8,7 @@ before_install:
 install:
   - pipenv install --dev --system --deploy
   - python manage.py migrate
+  - python manage.py collectstatic
 script:
   - python manage.py test
   - coverage run --source='.' manage.py test app.minime
