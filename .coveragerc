@@ -1,0 +1,7 @@
+[run]
+omit =
+    manage.py
+    urls.py
+    setup.py
+    app/urls.py
+    app/wsgi.py
