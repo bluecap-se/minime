@@ -123,6 +123,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+
 # Raven config for Sentry error logging
 RAVEN_CONFIG = {
     'dsn': env.str('SENTRY_DNS', ''),
