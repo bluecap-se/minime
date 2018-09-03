@@ -3,6 +3,9 @@
 
 ### Next
 
+
+### 0.1.0
+
 - Updated frontend functionality.
 - Save visitor stats on redirect. 
 - Added password protection.
