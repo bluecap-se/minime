@@ -29,7 +29,7 @@ def create_stats(request, hash):
     :param hash: Redirect hash
     :return: Created `Visitor` db object
     """
-    urlobj = models.Url.objects.get(hash=hash)
+    urlobj = models.Url.objects.filter(hash=hash).first()
 
     if not urlobj:
         return
