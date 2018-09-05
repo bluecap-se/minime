@@ -3,6 +3,7 @@
 
 ### Next
 
+- Updated template structure.
 
 ### 0.1.0
 
