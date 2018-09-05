@@ -50,7 +50,7 @@ Variable              | Description                   | Default
 DJANGO_DEBUG          | Debug mode                    | False
 DJANGO_SECRET_KEY     | Secret key                    | Change!
 DJT_ENABLED           | Should DJT be shown?          | False
-DATABASE_URL          | Database url                  | Local SQLite
+DATABASE_URL          | Database url                  | In-memory
 REDIS_URL             | URL to local redis cache      | Local redis
 SENTRY_DNS            | URL for Sentry error tracking | None
 ALLOWED_HOSTS         | Set to your domain            | Django default
