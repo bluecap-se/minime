@@ -10,8 +10,21 @@ services:
         environment:
             - DJANGO_DEBUG=True
             - SERVER_URL=http://127.0.0.1
+            - DATABASE_URL=mysql://root:verysecret@db/mini_main
             - REDIS_URL=rediscache://redis:6379/1?client_class=django_redis.client.DefaultClient&compressor=django_redis.compressors.zlib.ZlibCompressor
         command: ["runserver"]
+
+    db:
+        image: mysql:5.7
+        container_name: mini_db
+        restart: always
+        expose:
+            - "3306"
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_DATABASE=mini_main
+            - MYSQL_ROOT_PASSWORD=verysecret
 
     redis:
         image: redis
