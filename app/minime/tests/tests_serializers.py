@@ -1,5 +1,7 @@
 from django.test import TestCase
+from django.contrib.auth import hashers
 
+from .. import models
 from .. import serializers
 
 
@@ -46,3 +48,19 @@ class SerializerTestCase(TestCase):
         self.assertEqual(res.url, input_data['url'])
         self.assertIsNotNone(res.hash)
         self.assertIsNotNone(res.password)
+
+    def test_pass_password_compare(self):
+        input_data = {
+            'url': 'http://127.0.0.1:8000/',
+            'hash': 'abcdef',
+            'password': 'pass123'
+        }
+        serializer_instance = serializers.UrlSerializer(data=input_data)
+        serializer_instance.is_valid()
+        serializer_instance.save()
+
+        u = models.Url.objects.first()
+        serializer_instance = serializers.UrlSerializer(u)
+
+        self.assertFalse(serializer_instance.compare_passwords(''))
+        self.assertTrue(serializer_instance.compare_passwords(input_data['password']))

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}: Welcome back{% endblock %}
+
+{% block content %}
+    <form id="formShorten" class="form-shorten" action="{% url 'minime:admin-dashboard' %}" method="post">
+
+        <header class="text-center mb-4">
+            <img class="mb-4 logo" src="{% static "images/logo.png" %}" alt="Minime logo" width="90" height="90">
+            <h1 class="h3 mb-3 font-weight-normal">MiniMe</h1>
+            <p>Your link is shrunk, now lets see some stats.</p>
+        </header>
+
+        <article class="panel url-form">
+            {% if message %}
+                <div class="alert alert-danger text-center" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+            <div class="form-label-group">
+                {{ form.hash }}
+            </div>
+
+            <div id="formPasswordField" class="form-label-group">
+                {{ form.password }}
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </article>
+
+        <footer>
+            <p class="mt-3 mb-2 text-muted text-center">Made by <a href="https://bluecap.se" target="_blank">Bluecap</a></p>
+        </footer>
+    </form>
+{% endblock %}

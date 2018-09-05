@@ -16,25 +16,28 @@ class UrlSerializer(serializers.ModelSerializer):
         model = models.Url
         fields = ('hash', 'url', 'password')
 
-    def create(self, data):
+    def create(self, validated_data):
         """
         Overrides super method.
 
         :param data: Data object
         :return: DB instance
         """
-        data['hash'] = self.create_hash()
+        validated_data['hash'] = self.create_hash()
 
-        if data.get('password', None):
-            data['password'] = hashers.make_password(data['password'])
+        if validated_data.get('password', None):
+            validated_data['password'] = hashers.make_password(validated_data['password'])
 
-        instance = super(UrlSerializer, self).create(data)
+        instance = super(UrlSerializer, self).create(validated_data)
 
         if instance:
             utils.cache_set_url(instance.hash, instance.url)
             utils.cache_set_hash_taken(instance.hash)
 
         return instance
+
+    def compare_passwords(self, against):
+        return hashers.check_password(against, self.instance.password)
 
     @staticmethod
     def create_hash():

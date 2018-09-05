@@ -8,15 +8,14 @@ from rest_framework.test import APIClient
 from .. import models
 
 
-class ViewsTestCase(TestCase):
+class ViewHomeTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
 
     def test_view_index(self):
         response = self.client.get(reverse('minime:home'))
-
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 class ViewRedirectTestCase(TestCase):
@@ -85,3 +84,18 @@ class ViewShortenTestCase(TestCase):
         self.assertEqual(models.Url.objects.count(), 1)
         self.assertIsNotNone(models.Url.objects.get(hash=response.data['hash']))
         self.assertIsNotNone(models.Url.objects.get(hash=response.data['hash']).password)
+
+
+class ViewAdminTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_view_admin_login(self):
+        response = self.client.get(reverse('minime:admin-login', kwargs={'hash': 'abcdef'}))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_view_dashboard(self):
+        # Only POST method allowed
+        response = self.client.get(reverse('minime:admin-dashboard'))
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)

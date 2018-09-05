@@ -7,9 +7,6 @@ class Url(models.Model):
     created = models.DateTimeField(auto_now=True)
     password = models.CharField(max_length=1024, null=True)
 
-    def __str__(self):
-        return self.url
-
     class Meta:
         indexes = [
             models.Index(fields=['hash'])
