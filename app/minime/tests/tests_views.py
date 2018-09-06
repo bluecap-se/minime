@@ -98,4 +98,4 @@ class ViewAdminTestCase(TestCase):
     def test_view_dashboard(self):
         # Only POST method allowed
         response = self.client.get(reverse('minime:admin-dashboard'))
-        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
