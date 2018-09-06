@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import generics
 
+from . import authenticators
 from . import forms
 from . import models
 from . import serializers
@@ -47,6 +48,7 @@ class CreateShortUrl(generics.CreateAPIView):
     """
     queryset = models.Url.objects.all()
     serializer_class = serializers.UrlSerializer
+    authentication_classes = (authenticators.CSRFAuth,)
 
 
 """
@@ -82,24 +84,14 @@ class AdminDashboard(generics.CreateAPIView):
     """
     queryset = models.Url.objects.all()
     serializer_class = serializers.UrlSerializer
+    authentication_classes = (authenticators.AdminAuth,)
 
     def post(self, request, *args, **kwargs):
-        """
-        TODO: Move to auth class
-        :return:
-        """
-        hash = request.POST.get('hash', None)
-        password = request.POST.get('password', None)
-
-        instance = get_object_or_404(self.queryset, hash=hash)
-        serializer = self.get_serializer(instance)
-
-        if not serializer.compare_passwords(password):
+        if not request.user:
             request.session['form_message'] = 'Wrong password, try again.'
-            return redirect('minime:admin-login', hash=hash)
+            return redirect('minime:admin-login', hash=request.POST.get('hash', None))
 
-        """
-        END MOVE
-        """
+        # TODO: Get stats data for request.user model instance
+        context = {}
 
-        return render(request, 'admin/dashboard.html')
+        return render(request, 'admin/dashboard.html', context)

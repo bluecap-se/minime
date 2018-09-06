@@ -5,6 +5,7 @@
 
 {% block content %}
     <form id="formShorten" class="form-shorten" action="{% url 'minime:admin-dashboard' %}" method="post">
+        {% csrf_token %}
 
         <header class="text-center mb-4">
             <img class="mb-4 logo" src="{% static "images/logo.png" %}" alt="Minime logo" width="90" height="90">
