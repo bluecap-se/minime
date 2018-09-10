@@ -15,6 +15,7 @@ class Url(models.Model):
 
 class Visitors(models.Model):
     url = models.ForeignKey(Url, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now=True)
     browser_family = models.CharField(max_length=100)
     browser_version = models.CharField(max_length=100)
     os_family = models.CharField(max_length=100)
