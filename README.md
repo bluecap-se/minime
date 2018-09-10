@@ -10,6 +10,10 @@
 
 The last link shortener you'll ever need.
 
+## Try it out
+
+There is a demo account set up. Access the admin by clicking on http://minime.bluecap.se/r/IxOfNA+ and using password `demo`.
+
 ## Install and run
 
 ### Run with Docker
@@ -27,6 +31,8 @@ $ open http://127.0.0.1:8000/
 
 This project relies on [Pipenv](https://docs.pipenv.org/), ensure that it is
 installed with `pip install pipenv` first.
+
+Local Redis and database of choice should also be available.
 
 ```
 $ git clone git@github.com:bluecap-se/minime.git
