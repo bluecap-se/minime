@@ -4,7 +4,7 @@ python:
 services:
   - redis-server
 before_install:
-  - pip install pipenv==2018.10.13
+  - pip install pipenv==2018.7.1
 install:
   - pipenv install --dev --system --deploy
   - python manage.py migrate
