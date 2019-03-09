@@ -7,7 +7,7 @@ class Url(models.Model):
     created = models.DateTimeField(auto_now=True)
     password = models.CharField(max_length=1024, null=True)
 
-    def __str__(self):
+    def __str__(self) -> models.URLField:
         return self.url
 
     class Meta:

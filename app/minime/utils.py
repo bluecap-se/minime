@@ -1,25 +1,27 @@
 from django.core.cache import cache
+from django.http import request
+from typing import Union
 
 from . import models
 
 
-def cache_set_url(hash, url):
+def cache_set_url(hash: str, url: str) -> str:
     return cache.set('short:url:{}'.format(hash), url, 60 * 60 * 24 * 7)
 
 
-def cache_get_short_url(hash):
+def cache_get_short_url(hash: str) -> str:
     return cache.get('short:url:{}'.format(hash))
 
 
-def cache_set_hash_taken(hash):
+def cache_set_hash_taken(hash: str) -> str:
     return cache.set('hash:taken:{}'.format(hash), 1, None)
 
 
-def cache_is_hash_taken(hash):
+def cache_is_hash_taken(hash: str) -> bool:
     return cache.get('hash:taken:{}'.format(hash)) is not None
 
 
-def create_stats(request, hash):
+def create_stats(request: request, hash: str) -> Union[models.Visitors, None]:
     """
     Creates stats for redirection hash
 
