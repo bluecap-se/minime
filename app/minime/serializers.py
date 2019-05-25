@@ -16,7 +16,7 @@ class UrlSerializer(serializers.ModelSerializer):
         model = models.Url
         fields = ('hash', 'url', 'password')
 
-    def create(self, data):
+    def create(self, data: dict) -> models.Url:
         """
         Overrides super method.
 
@@ -37,7 +37,7 @@ class UrlSerializer(serializers.ModelSerializer):
         return instance
 
     @staticmethod
-    def create_hash():
+    def create_hash() -> str:
         """
         Creates a unique hash
 
