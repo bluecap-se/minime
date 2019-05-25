@@ -3,6 +3,8 @@
 
 ### Next
 
+- Added Zappa deploy.
+- Updated dependencies.
 
 ### 0.1.1
 
