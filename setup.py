@@ -14,7 +14,7 @@ setup(
     name=minime.__title__,
     description='MiniMe - An online URL shortener',
     long_description=readme,
-    version=minime.__version__,
+    version='0.4.3',
     author='bluecap-se',
     author_email='hello@bluecap.se',
     url='https://github.com/bluecap-se/minime',

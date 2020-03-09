@@ -1,0 +1,11 @@
+{
+    "staging": {
+        "aws_region": "eu-west-1",
+        "django_settings": "app.settings",
+        "profile_name": "default",
+        "project_name": "minime",
+        "runtime": "python3.7",
+        "s3_bucket": "zappa-minime-deploy",
+        "use_precompiled_packages": false
+    }
+}

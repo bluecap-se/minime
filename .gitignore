@@ -59,6 +59,7 @@ docs/_build/
 target/
 
 # Own
+.env
 .idea
 staticfiles
 .webassets-cache
