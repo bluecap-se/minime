@@ -22,7 +22,7 @@ script:
 after_success:
   - coveralls
   - docker --version
-  - pip install --user awscli
+  - pip install awscli
   - export PATH=$PATH:$HOME/.local/bin
   - eval $(aws ecr get-login --no-include-email --region $AWS_REGION)
   - docker build -t $APP_NAME:$TRAVIS_BUILD_ID .
