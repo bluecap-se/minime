@@ -4,19 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==2.2.1"
-djangorestframework = "==3.9.4"
-django-debug-toolbar = "==1.11"
+django = "==2.2.11"
+djangorestframework = "==3.11.0"
+django-debug-toolbar = "==2.2"
 django-environ = "==0.4.5"
-django-redis-cache = "==2.0.0"
+django-redis-cache = "==2.1.0"
 django-static-precompiler = "==1.8.2"
-django-user-agents = "==0.3.2"
-gunicorn = "==19.9.0"
-lesscpy = "==0.13.0"
+django-user-agents = "==0.4.0"
+gunicorn = "==20.0.4"
+lesscpy = "==0.14.0"
 raven = "==6.10.0"
-whitenoise = "==4.1.2"
-zappa = "==0.48.2"
-zappa-django-utils = "==0.4.0"
+whitenoise = "==5.0.1"
 
 [dev-packages]
 coverage = "==4.5.3"
