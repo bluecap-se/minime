@@ -15,10 +15,12 @@ gunicorn = "==20.0.4"
 lesscpy = "==0.14.0"
 raven = "==6.10.0"
 whitenoise = "==5.0.1"
+zappa = "==0.51.0"
+zappa-django-utils = "==0.4.1"
 
 [dev-packages]
-coverage = "==4.5.3"
-coveralls = "==1.7.0"
+coverage = "==5.0.4"
+coveralls = "==1.11.1"
 
 [requires]
 python_version = "3.7"

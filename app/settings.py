@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'static_precompiler',
     'rest_framework',
     'django_user_agents',
+    'zappa_django_utils',
 
     # Own
     'app.minime',
