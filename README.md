@@ -25,7 +25,7 @@ $ open http://127.0.0.1:8000/
 
 ## Run on local machine
 
-This project relies on [Pipenv](https://docs.pipenv.org/), ensure that it is
+This project relies on [Pipenv](https://pipenv.pypa.io/en/latest/), ensure that it is
 installed with `pip install pipenv` first.
 
 ```
@@ -40,8 +40,7 @@ $ open http://127.0.0.1:8000/
 
 ## Deployment
 
-This project is setup to be deployed on Heroku platform. Check how to deploy to
-Heroku on https://devcenter.heroku.com/categories/python-support
+This project is setup to be deployed on AWS using [Zappa](https://github.com/Miserlou/Zappa).
 
 These environment variables are available:
 
