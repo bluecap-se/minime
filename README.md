@@ -81,4 +81,4 @@ $ open htmlcov/index.html
 
 ## License
 
-Published under [MIT License](https://github.com/bluecap-se/minime/master/LICENSE).
+Published under [MIT License](https://github.com/bluecap-se/minime/blob/master/LICENSE).
