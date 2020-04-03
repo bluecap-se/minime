@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import environ
 
+import pymysql
+pymysql.install_as_MySQLdb()
+pymysql.version_info = (1, 3, 13, 'final', 0)
+
 
 root = BASE_DIR = environ.Path(__file__) - 2
 env = environ.Env()
