@@ -1,14 +1,17 @@
 {
-    "prod": {
-        "aws_region": "eu-west-1",
-        "django_settings": "app.settings",
-        "profile_name": "zappa",
-        "project_name": "minime",
-        "runtime": "python3.7",
-        "s3_bucket": "zappa-deploy-rk6flpjp4j",
-        "timeout_seconds": 900,
-        "manage_roles": false,
-        "role_name": "ZappaDjangoRole",
-        "role_arn": "arn:aws:iam::528674153043:role/ZappaDjangoRole"
-    }
+  "prod": {
+    "aws_region": "eu-west-1",
+    "django_settings": "app.settings",
+    "profile_name": "zappa",
+    "project_name": "minime",
+    "runtime": "python3.7",
+    "s3_bucket": "zappa-deploy-rk6flpjp4j",
+    "timeout_seconds": 900,
+    "manage_roles": false,
+    "environment_variables": {
+      "DJANGO_DEBUG": "True"
+    },
+    "role_name": "ZappaDjangoRole",
+    "role_arn": "arn:aws:iam::528674153043:role/ZappaDjangoRole"
+  }
 }
