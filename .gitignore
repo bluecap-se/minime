@@ -64,3 +64,4 @@ target/
 staticfiles
 .webassets-cache
 *.sqlite3
+cloudformation-parameters.json
