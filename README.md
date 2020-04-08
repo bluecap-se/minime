@@ -42,6 +42,25 @@ $ open http://127.0.0.1:8000/
 
 This project is setup to be deployed on AWS using [Zappa](https://github.com/Miserlou/Zappa).
 
+Deploy by first creating the necessary infrastructure on AWS. First, rename `cloudformation-parameters.json.template` file to
+`cloudformation-parameters.json` and input the values.
+
+Then create and deploy the Cloudformation stack with:
+
+```
+$ make infrastructure-create
+```
+
+Wait until the Cloudformation stack has completed successfully.
+
+Then deploy Zappa with:
+
+```
+$ make deploy
+```
+
+### Environment variables
+
 These environment variables are available:
 
 Variable              | Description                   | Default
@@ -58,24 +77,22 @@ ALLOWED_HOSTS         | Set to your domain            | Django default
 
 ### Regular tests
 
-Tests can be run in Docker or on the host.
+Tests can be run on the host:
 
 ```
-$ python manage.py test
+$ make test
 ```
 
 ...or in a running docker container:
 
 ```
-$ docker exec mini_app python manage.py test
+$ docker exec mini_app make test
 ```
 
 ### Test coverage
 
 ```
-$ pipenv install --dev
-$ coverage run --source='.' manage.py test app.minime
-$ coverage html
+$ make test-coverage
 $ open htmlcov/index.html
 ```
 
