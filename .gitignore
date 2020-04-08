@@ -59,7 +59,10 @@ docs/_build/
 target/
 
 # Own
+.env
 .idea
 staticfiles
 .webassets-cache
 *.sqlite3
+cloudformation-parameters.json
+zappa_settings.json

@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
 [![Coverage Status](https://coveralls.io/repos/github/bluecap-se/minime/badge.svg?branch=develop&gh)](https://coveralls.io/github/bluecap-se/minime?branch=develop)
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.7-blue.svg)
-[![Docker pulls](https://img.shields.io/docker/pulls/bluecap/minime.svg)](https://registry.hub.docker.com/u/bluecap/minime/)
+[![Docker pulls](https://img.shields.io/docker/pulls/bluecap/minime)](https://hub.docker.com/r/bluecap/minime)
 ![Platform](https://img.shields.io/badge/platform-win%20%7C%20lin%20%7C%20osx-lightgrey.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
@@ -25,7 +25,7 @@ $ open http://127.0.0.1:8000/
 
 ## Run on local machine
 
-This project relies on [Pipenv](https://docs.pipenv.org/), ensure that it is
+This project relies on [Pipenv](https://pipenv.pypa.io/en/latest/), ensure that it is
 installed with `pip install pipenv` first.
 
 ```
@@ -40,8 +40,26 @@ $ open http://127.0.0.1:8000/
 
 ## Deployment
 
-This project is setup to be deployed on Heroku platform. Check how to deploy to
-Heroku on https://devcenter.heroku.com/categories/python-support
+This project is setup to be deployed on AWS using [Zappa](https://github.com/Miserlou/Zappa).
+
+Deploy by first creating the necessary infrastructure on AWS. First, rename `cloudformation-parameters.json.template` file to
+`cloudformation-parameters.json` and input the values.
+
+Then create and deploy the Cloudformation stack with:
+
+```
+$ make infrastructure-create
+```
+
+Wait until the Cloudformation stack has completed successfully.
+
+Then deploy Zappa with:
+
+```
+$ make deploy
+```
+
+### Environment variables
 
 These environment variables are available:
 
@@ -59,27 +77,25 @@ ALLOWED_HOSTS         | Set to your domain            | Django default
 
 ### Regular tests
 
-Tests can be run in Docker or on the host.
+Tests can be run on the host:
 
 ```
-$ python manage.py test
+$ make test
 ```
 
 ...or in a running docker container:
 
 ```
-$ docker exec mini_app python manage.py test
+$ docker exec mini_app make test
 ```
 
 ### Test coverage
 
 ```
-$ pipenv install --dev
-$ coverage run --source='.' manage.py test app.minime
-$ coverage html
+$ make test-coverage
 $ open htmlcov/index.html
 ```
 
 ## License
 
-Published under [MIT License](https://github.com/bluecap-se/minime/master/LICENSE).
+Published under [MIT License](https://github.com/bluecap-se/minime/blob/master/LICENSE).
