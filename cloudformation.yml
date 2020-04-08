@@ -2,7 +2,7 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Description: >
-  A basic CloudFormation template for Minime service.
+  A CloudFormation template for Minime service.
 
 Parameters:
   DBInstanceID:
@@ -34,7 +34,7 @@ Parameters:
     Type: Number
     MinValue: "20"
     MaxValue: "1024"
-    ConstraintDescription: must be between 20 and 65536 GiB.
+    ConstraintDescription: Must be between 20 and 65536 GiB.
   DBUsername:
     NoEcho: true
     Description: Username for database access
@@ -42,7 +42,7 @@ Parameters:
     MinLength: "1"
     MaxLength: "16"
     AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
-    ConstraintDescription: must begin with a letter and contain only alphanumeric characters.
+    ConstraintDescription: Must begin with a letter and contain only alphanumeric characters.
   DBPassword:
     NoEcho: true
     Description: Password database access
@@ -50,7 +50,7 @@ Parameters:
     MinLength: "8"
     MaxLength: "41"
     AllowedPattern: "[a-zA-Z0-9]*"
-    ConstraintDescription: must contain only alphanumeric characters.
+    ConstraintDescription: Must contain only alphanumeric characters.
   CacheNodeName:
     Default: mycache
     Description: ElastiCache instance name
@@ -202,13 +202,22 @@ Outputs:
   StackName:
     Description: Stack name.
     Value: !Sub ${AWS::StackName}
-  ElasticacheNodeName:
-    Description: The name of the Elasticache node.
+  RDSInstanceName:
+    Description: The name of the RDS instance.
+    Value: !Ref RDSInstance
+  RDSInstanceAddress:
+    Description: The DNS address of the primary read-write RDS instance.
+    Value: !GetAtt RDSInstance.Endpoint.Address
+  RDSInstancePort:
+    Description: The port that the primary read-write RDS instance is listening on.
+    Value: !GetAtt RDSInstance.Endpoint.Port
+  ElasticacheInstanceName:
+    Description: The name of the Elasticache instance.
     Value: !Ref ElasticacheInstance
-  ElasticacheAddress:
-    Description: The DNS address of the primary read-write cache node.
+  ElasticacheInstanceAddress:
+    Description: The DNS address of the primary read-write cache instance.
     Value: !GetAtt ElasticacheInstance.RedisEndpoint.Address
-  ElasticachePort:
+  ElasticacheInstancePort:
     Description: The port that the primary read-write cache engine is listening on.
     Value: !GetAtt ElasticacheInstance.RedisEndpoint.Port
   S3BucketName:

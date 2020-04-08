@@ -27,7 +27,7 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not-safe-for-production')
 
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*'] if DEBUG else env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '[::1]', '17fakhv1gc.execute-api.eu-west-1.amazonaws.com'])
+ALLOWED_HOSTS = ['*'] if DEBUG else env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '[::1]', '.execute-api.eu-west-1.amazonaws.com'])
 
 
 # Application definition

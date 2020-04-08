@@ -65,3 +65,4 @@ staticfiles
 .webassets-cache
 *.sqlite3
 cloudformation-parameters.json
+zappa_settings.json
