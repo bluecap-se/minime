@@ -3,6 +3,10 @@
 
 ### Next
 
+
+### 0.2.0
+
+- Added Cloudformation deploy.
 - Added Zappa deploy.
 - Updated dependencies.
 
