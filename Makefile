@@ -35,7 +35,7 @@ infrastructure-describe:
 deploy:
 	set -e
 	rm -f zappa_settings.json zappa_settings.json.tmp
-	cp zappa_settings.json.template zappa_settings.json.tmp
+	cp zappa_settings.json.example zappa_settings.json.tmp
 
 	$(eval S3_BUCKET = $(shell aws cloudformation describe-stacks --stack-name $(AWS_STACK_NAME) --query "Stacks[0].Outputs[4].OutputValue"))
 	$(eval DB_URL = $(shell aws cloudformation describe-stacks --stack-name $(AWS_STACK_NAME) --query "Stacks[0].Outputs[7].OutputValue"))
