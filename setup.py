@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 
 import minime
 
@@ -15,7 +14,7 @@ setup(
     name=minime.__title__,
     description='MiniMe - An online URL shortener',
     long_description=readme,
-    version=minime.__version__,
+    version='0.2.0',
     author='bluecap-se',
     author_email='hello@bluecap.se',
     url='https://github.com/bluecap-se/minime',

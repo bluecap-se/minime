@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey": "DBUsername",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "DBPassword",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "CacheNodeName",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "CacheNodeType",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "S3BucketName",
+    "ParameterValue": ""
+  }
+]

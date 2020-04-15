@@ -1,13 +1,13 @@
-FROM python:3.6
+FROM python:3.7-slim
 
 MAINTAINER bluecap
 
 WORKDIR /minime
 COPY . /minime
 
-COPY docker-entrypoint.sh /usr/sbin/
+COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN pip install pipenv==2018.7.1 && \
+RUN pip install pipenv==2018.11.26 && \
     pipenv install --system --deploy
 
 ENTRYPOINT ["docker-entrypoint.sh"]

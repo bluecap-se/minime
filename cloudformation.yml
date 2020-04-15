@@ -1,0 +1,225 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+  A CloudFormation template for Minime service.
+
+Parameters:
+  DBInstanceID:
+    Default: mydbinstance
+    Description: Database instance name
+    Type: String
+    MinLength: "1"
+    MaxLength: "63"
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    ConstraintDescription: >-
+      Must begin with a letter and must not end with a hyphen or contain two
+      consecutive hyphens.
+  DBName:
+    Default: mydb
+    Description: Database name
+    Type: String
+    MinLength: "1"
+    MaxLength: "64"
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    ConstraintDescription: Must begin with a letter and contain only alphanumeric characters.
+  DBInstanceClass:
+    Default: db.t3.micro
+    Description: DB instance class
+    Type: String
+    ConstraintDescription: Must select a valid DB instance type.
+  DBAllocatedStorage:
+    Default: "20"
+    Description: The size of the database (GiB)
+    Type: Number
+    MinValue: "20"
+    MaxValue: "1024"
+    ConstraintDescription: Must be between 20 and 65536 GiB.
+  DBUsername:
+    NoEcho: true
+    Description: Username for database access
+    Type: String
+    MinLength: "1"
+    MaxLength: "16"
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    ConstraintDescription: Must begin with a letter and contain only alphanumeric characters.
+  DBPassword:
+    NoEcho: true
+    Description: Password database access
+    Type: String
+    MinLength: "8"
+    MaxLength: "41"
+    AllowedPattern: "[a-zA-Z0-9]*"
+    ConstraintDescription: Must contain only alphanumeric characters.
+  CacheNodeName:
+    Default: mycache
+    Description: ElastiCache instance name
+    Type: String
+    MinLength: "1"
+    MaxLength: "40"
+    AllowedPattern: "^[a-zA-Z][-a-zA-Z0-9]*$"
+    ConstraintDescription: Must begin with a letter and contain only lowercase alphanumeric characters and hyphens.
+  CacheNodeType:
+    Default: cache.t3.micro
+    Description: The compute and memory capacity of the nodes in the node group (shard).
+    Type: String
+  S3BucketName:
+    Description: Bucket name for static resources
+    Type: String
+    MinLength: "3"
+    MaxLength: "63"
+    AllowedPattern: "[a-zA-Z][a-z0-9-]*"
+    ConstraintDescription: Must begin with a letter and contain only lowercase alphanumeric characters and hyphens.
+
+Resources:
+  RDSDemoVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 192.168.0.0/16
+      Tags:
+      -
+        Key: Name
+        Value: RDSDemoVPC
+
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: eu-west-1a
+      VpcId: !Ref RDSDemoVPC
+      CidrBlock: 192.168.1.0/24
+      Tags:
+      -
+        Key: Name
+        Value: PrivateSubnet1
+
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: eu-west-1b
+      VpcId: !Ref RDSDemoVPC
+      CidrBlock: 192.168.2.0/24
+      Tags:
+      -
+        Key: Name
+        Value: PrivateSubnet2
+
+  RDSDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnets for RDS
+      DBSubnetGroupName: RDSDBSubnetGroup
+      SubnetIds:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+
+  RDSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref RDSDemoVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      Tags:
+      -
+        Key: Name
+        Value: RDSSecurityGroup
+
+  RDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: !Ref DBInstanceID
+      DBName: !Ref DBName
+      DBInstanceClass: !Ref DBInstanceClass
+      AllocatedStorage: !Ref DBAllocatedStorage
+      StorageType: gp2
+      Engine: MySQL
+      EngineVersion: 5.7.28
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      PubliclyAccessible: false
+      MultiAZ: false
+      DBSubnetGroupName: !Ref RDSDBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref RDSSecurityGroup
+
+  ElasticacheSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Properties:
+      Description: Cache Subnet Group
+      SubnetIds:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+
+  ElasticacheSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Elasticache Security Group
+      VpcId: !Ref RDSDemoVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 6379
+          ToPort: 6379
+      Tags:
+      -
+        Key: Name
+        Value: ElasticacheSecurityGroup
+
+  ElasticacheInstance:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      ClusterName: !Ref CacheNodeName
+      AutoMinorVersionUpgrade: true
+      Engine: redis
+      CacheNodeType: !Ref CacheNodeType
+      NumCacheNodes: 1
+      CacheSubnetGroupName: !Ref ElasticacheSubnetGroup
+      VpcSecurityGroupIds:
+        - !GetAtt ElasticacheSecurityGroup.GroupId
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Ref S3BucketName
+      CorsConfiguration:
+        CorsRules:
+        - AllowedHeaders: ["Authorization"]
+          AllowedMethods: [GET]
+          AllowedOrigins: ["*"]
+          MaxAge: 3600
+
+Outputs:
+  StackName:
+    Description: Stack name.
+    Value: !Sub ${AWS::StackName}
+  RDSInstanceName:
+    Description: The name of the RDS instance.
+    Value: !Ref RDSInstance
+  RDSInstanceAddress:
+    Description: The DNS address of the primary read-write RDS instance.
+    Value: !GetAtt RDSInstance.Endpoint.Address
+  RDSInstancePort:
+    Description: The port that the primary read-write RDS instance is listening on.
+    Value: !GetAtt RDSInstance.Endpoint.Port
+  ElasticacheInstanceName:
+    Description: The name of the Elasticache instance.
+    Value: !Ref ElasticacheInstance
+  ElasticacheInstanceAddress:
+    Description: The DNS address of the primary read-write cache instance.
+    Value: !GetAtt ElasticacheInstance.RedisEndpoint.Address
+  ElasticacheInstancePort:
+    Description: The port that the primary read-write cache engine is listening on.
+    Value: !GetAtt ElasticacheInstance.RedisEndpoint.Port
+  S3BucketName:
+    Description: S3 bucket name.
+    Value: !Ref S3Bucket
