@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 django = "==2.2.12"
-djangorestframework = "==3.11.0"
+djangorestframework = "==3.11.2"
 django-debug-toolbar = "==2.2"
 django-environ = "==0.4.5"
 django-redis-cache = "==2.1.0"
