@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "django_user_agents",
+    "zappa_django_utils",
     # Own
     "minime",
 ]
