@@ -46,6 +46,9 @@ ALLOWED_HOSTS = (
     )
 )
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 
 # Application definition
 
@@ -57,7 +60,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third-party
-    "static_precompiler",
+    "compressor",
+    "corsheaders",
     "rest_framework",
     "django_user_agents",
     # Own
@@ -94,7 +98,7 @@ MIDDLEWARE += [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # Third-party
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django_user_agents.middleware.UserAgentMiddleware",
 ]
@@ -118,6 +122,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "app.wsgi.application"
+ASGI_APPLICATION = "app.asgi.application"
 
 
 # Database
@@ -172,26 +177,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATICFILES_STORAGE = "app.storage.WhiteNoiseStaticFilesStorage"
+COMPRESS_OUTPUT_DIR = "build"
+COMPRESS_FILTERS = {
+    "css": [
+        "compressor.filters.css_default.CssAbsoluteFilter",
+        "compressor.filters.cssmin.rCSSMinFilter",
+    ],
+    "js": ["compressor.filters.jsmin.rJSMinFilter"],
+}
 
-STATIC_URL = "/static/"
-
-STATIC_ROOT = root("staticfiles")
-
-STATICFILES_FINDERS = [
+STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "static_precompiler.finders.StaticPrecompilerFinder",
-]
-
-STATIC_PRECOMPILER_COMPILERS = (
-    (
-        "static_precompiler.compilers.LESS",
-        {
-            "executable": "lesscpy",
-        },
-    ),
+    "compressor.finders.CompressorFinder",
 )
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_DIRS = [
+    root("minime/static"),
+]
+STATIC_URL = "/static/"
+STATIC_ROOT = root("staticfiles")
 
 
 # Default primary key field type

@@ -40,7 +40,7 @@ $ open http://127.0.0.1:8000/
 
 ## Deployment
 
-This project is setup to be deployed on AWS using [Zappa](https://github.com/Miserlou/Zappa).
+This project is setup to be deployed on AWS using [Zappa](https://github.com/zappa/Zappa).
 
 Deploy by first creating the necessary infrastructure on AWS. First, rename `cloudformation-parameters.json.example` file to
 `cloudformation-parameters.json` and input the values.
