@@ -1,13 +1,11 @@
-FROM python:3.7-slim
-
-MAINTAINER bluecap
+FROM python:3.10-slim
 
 WORKDIR /minime
 COPY . /minime
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN pip install pipenv==2018.11.26 && \
+RUN pip install pipenv==2022.9.8 && \
     pipenv install --system --deploy
 
 ENTRYPOINT ["docker-entrypoint.sh"]

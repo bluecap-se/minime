@@ -1,11 +1,8 @@
 import string
 import random
-
 from django.contrib.auth import hashers
 from rest_framework import serializers
-
-from . import models
-from . import utils
+from minime import models, utils
 
 
 class UrlSerializer(serializers.ModelSerializer):
@@ -14,7 +11,7 @@ class UrlSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Url
-        fields = ('hash', 'url', 'password')
+        fields = ("hash", "url", "password")
 
     def create(self, data: dict) -> models.Url:
         """
@@ -23,10 +20,10 @@ class UrlSerializer(serializers.ModelSerializer):
         :param data: Data object
         :return: DB instance
         """
-        data['hash'] = self.create_hash()
+        data["hash"] = self.create_hash()
 
-        if data.get('password', None):
-            data['password'] = hashers.make_password(data['password'])
+        if data.get("password", None):
+            data["password"] = hashers.make_password(data["password"])
 
         instance = super(UrlSerializer, self).create(data)
 
@@ -48,7 +45,7 @@ class UrlSerializer(serializers.ModelSerializer):
 
         # Generate a new ID, until one is found that is unique
         while True:
-            hash = ''.join(random.choice(char) for _ in range(length))
+            hash = "".join(random.choice(char) for _ in range(length))
 
             if not utils.cache_is_hash_taken(hash):
                 return hash

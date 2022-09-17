@@ -1,24 +1,23 @@
 from django.core.cache import cache
 from django.http import request
 from typing import Union
-
-from . import models
+from minime import models
 
 
 def cache_set_url(hash: str, url: str) -> str:
-    return cache.set('short:url:{}'.format(hash), url, 60 * 60 * 24 * 7)
+    return cache.set("short:url:{}".format(hash), url, 60 * 60 * 24 * 7)
 
 
 def cache_get_short_url(hash: str) -> str:
-    return cache.get('short:url:{}'.format(hash))
+    return cache.get("short:url:{}".format(hash))
 
 
 def cache_set_hash_taken(hash: str) -> str:
-    return cache.set('hash:taken:{}'.format(hash), 1, None)
+    return cache.set("hash:taken:{}".format(hash), 1, None)
 
 
 def cache_is_hash_taken(hash: str) -> bool:
-    return cache.get('hash:taken:{}'.format(hash)) is not None
+    return cache.get("hash:taken:{}".format(hash)) is not None
 
 
 def create_stats(request: request, hash: str) -> Union[models.Visitors, None]:
@@ -37,15 +36,15 @@ def create_stats(request: request, hash: str) -> Union[models.Visitors, None]:
         return
 
     if request.user_agent.is_mobile:
-        platform = 'mobile'
+        platform = "mobile"
     elif request.user_agent.is_tablet:
-        platform = 'tablet'
+        platform = "tablet"
     elif request.user_agent.is_pc:
-        platform = 'desktop'
+        platform = "desktop"
     elif request.user_agent.is_bot:
-        platform = 'bot'
+        platform = "bot"
     else:
-        platform = 'other'
+        platform = "other"
 
     visitor_obj = models.Visitors(
         url=urlobj,

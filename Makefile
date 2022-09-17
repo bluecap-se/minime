@@ -59,7 +59,7 @@ undeploy:
 #
 
 test:
-	python manage.py test
+	pipenv run python manage.py test
 
 test-coverage:
 	pipenv install --dev

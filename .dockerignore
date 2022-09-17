@@ -18,4 +18,5 @@
 .dockerignore
 Dockerfile
 .idea
+.vscode
 staticfiles
