@@ -11,14 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import environ
-import pymysql
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 from sentry_sdk.integrations.logging import ignore_logger
-
-pymysql.install_as_MySQLdb()
-pymysql.version_info = (1, 3, 13, "final", 0)
 
 
 root = BASE_DIR = environ.Path(__file__) - 2
@@ -62,8 +58,8 @@ INSTALLED_APPS = [
     # Third-party
     "compressor",
     "corsheaders",
-    "rest_framework",
     "django_user_agents",
+    "rest_framework",
     "zappa_django_utils",
     # Own
     "minime",
