@@ -1,5 +1,6 @@
 # MiniMe
 
+[![Tests](https://github.com/bluecap-se/minime/actions/workflows/test.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/test.yml)
 [![Build](https://github.com/bluecap-se/minime/actions/workflows/build.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/build.yml)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
 [![Coverage Status](https://coveralls.io/repos/github/bluecap-se/minime/badge.svg?branch=develop&gh)](https://coveralls.io/github/bluecap-se/minime?branch=develop)
