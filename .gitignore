@@ -61,6 +61,7 @@ target/
 # Own
 .env
 .idea
+.vscode
 staticfiles
 .webassets-cache
 *.sqlite3
