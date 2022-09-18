@@ -25,7 +25,9 @@ services:
             - "6379"
 
     web:
-        build: ./
+        build:
+            context: ../../
+            dockerfile: devops/docker/Dockerfile
         container_name: mini_app
         restart: always
         ports:

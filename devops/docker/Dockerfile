@@ -3,7 +3,7 @@ FROM python:3.10-slim
 WORKDIR /minime
 COPY . /minime
 
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY devops/docker/docker-entrypoint.sh /usr/local/bin/
 
 RUN apt-get update && apt-get install -y gcc default-libmysqlclient-dev
 

@@ -19,22 +19,7 @@ The preferred method is to run the project inside a Docker container.
 ```
 $ git clone git@github.com:bluecap-se/minime.git
 $ cd minime
-$ docker-compose up -d
-$ open http://127.0.0.1:8000/
-```
-
-## Run on local machine
-
-This project relies on [Pipenv](https://pypi.org/project/pipenv/), ensure that it is
-installed with `pip install pipenv` first.
-
-```
-$ git clone git@github.com:bluecap-se/minime.git
-$ cd minime
-$ pipenv install
-$ pipenv shell
-$ python manage.py migrate
-$ python manage.py runserver &
+$ make run
 $ open http://127.0.0.1:8000/
 ```
 
@@ -75,15 +60,7 @@ These environment variables are available:
 
 ## Run tests
 
-### Regular tests
-
-Tests can be run on the host:
-
-```
-$ make test
-```
-
-...or in a running docker container:
+Run the tests in docker container:
 
 ```
 $ docker exec mini_app make test
@@ -92,7 +69,7 @@ $ docker exec mini_app make test
 ### Test coverage
 
 ```
-$ make test-coverage
+$ docker exec mini_app make test-coverage
 $ open htmlcov/index.html
 ```
 
