@@ -1,8 +1,10 @@
 # Changelog
 
-
 ### Next
 
+### 0.3.0
+
+- Updated Python and deps to latest versions.
 
 ### 0.2.0
 
@@ -17,7 +19,7 @@
 ### 0.1.0
 
 - Updated frontend functionality.
-- Save visitor stats on redirect. 
+- Save visitor stats on redirect.
 - Added password protection.
 - Added Django Rest Framework.
 - Added test coverage and coveralls.
