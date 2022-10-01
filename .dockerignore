@@ -13,6 +13,11 @@
 
 *~
 
+**/.terraform
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
 .git
 .gitignore
 .dockerignore

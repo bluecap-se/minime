@@ -2,20 +2,15 @@ version: "3.9"
 
 services:
     db:
-        image: mysql:8
-        container_name: mini_db
-        restart: always
-        environment:
-            - MYSQL_DATABASE=django
-            - MYSQL_USER=user
-            - MYSQL_PASSWORD=password
-            - MYSQL_ROOT_PASSWORD=password
-        ports:
-            - "3306:3306"
-        expose:
-            - "3306"
-        volumes:
-            - /tmp/app/mysqld:/var/run/mysqld
+     image: postgres:14
+     container_name: db
+     restart: always
+     expose:
+         - "3306"
+     environment:
+       POSTGRES_USER: admin
+       POSTGRES_PASSWORD: password
+       POSTGRES_DB: django
 
     redis:
         image: redis:7
@@ -35,11 +30,10 @@ services:
         environment:
             - DJANGO_DEBUG=True
             - REDIS_URL=rediscache://redis:6379/1?client_class=django_redis.client.DefaultClient&compressor=django_redis.compressors.zlib.ZlibCompressor
-            - DATABASE_URL=mysql://user:password@db:3306/django
+            - DATABASE_URL=postgres://admin:password@db:5432/django
         command: ["runserver"]
         volumes:
           - ./:/minime/
-          - /tmp/app/mysqld:/run/mysqld
         depends_on:
             - db
             - redis

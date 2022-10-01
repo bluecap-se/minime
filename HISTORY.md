@@ -2,6 +2,8 @@
 
 ### Next
 
+- Replaced Zappa with Terraform.
+
 ### 0.3.0
 
 - Updated Python and deps to latest versions.
