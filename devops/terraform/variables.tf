@@ -129,6 +129,14 @@ variable "elasticache_instance_class" {
 }
 
 
+# S3
+
+variable "s3_bucket_name" {
+  description = "Minime bucket name for static files"
+  default     = "minime-static-frontend"
+}
+
+
 # domain
 
 variable "certificate_arn" {
