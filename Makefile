@@ -20,6 +20,14 @@ docker-push: docker-build
 
 
 #
+# FRONTEND
+#
+
+frontend-run:
+	npm run start --prefix frontend
+
+
+#
 # DEPLOY
 #
 

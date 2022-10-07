@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics
@@ -11,11 +12,9 @@ def index(request):
     :param request: Request object
     :return: Template http response
     """
-    return render(request, "index.html", {"form": forms.ShortenURLForm})
-
-
-def ping(request):
-    return HttpResponse(status=200)
+    return render(
+        request, "index.html", {"debug": settings.DEBUG, "form": forms.ShortenURLForm}
+    )
 
 
 def redirect(request, hash):
@@ -37,6 +36,10 @@ def redirect(request, hash):
     utils.create_stats(request, hash)
 
     return HttpResponseRedirect(url)
+
+
+def ping(request):
+    return HttpResponse(status=200)
 
 
 class CreateShortUrl(generics.CreateAPIView):
