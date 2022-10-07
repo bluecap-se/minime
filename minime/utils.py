@@ -1,3 +1,4 @@
+import requests
 from django.core.cache import cache
 from django.http import request
 from typing import Union
@@ -60,3 +61,26 @@ def create_stats(request: request, hash: str) -> Union[models.Visitors, None]:
     visitor_obj.save()
 
     return visitor_obj
+
+
+def get_current_app_version(use_cache: bool = True) -> dict:
+    cache_key = "react_version"
+    if use_cache:
+        in_cache = cache.get(cache_key)
+        if in_cache:
+            return in_cache
+
+    cdn_url = "http://minime-static-frontend.s3-website-eu-west-1.amazonaws.com/app/master/CURRENT_VERSION"
+    data = requests.get(cdn_url).json()
+    cache.set(cache_key, data, timeout=86400000)
+    return data
+
+
+def build_react_urls(data: dict) -> list:
+    urls = data.get("files", [])
+    version = data.get("version")
+
+    return [
+        f"http://minime-static-frontend.s3-website-eu-west-1.amazonaws.com/app/master/{version}/{u}"
+        for u in urls
+    ]

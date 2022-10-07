@@ -8,7 +8,7 @@ on:
       - completed
 
 env:
-  BUCKET: minime-static-frontend/app
+  BUCKET: minime-static-frontend
 
 jobs:
   build:
@@ -24,20 +24,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-
-      - run: npm ci
-      - run: npm run build --if-present
-
       - name: Set date env
         run: echo "VERSION=$(date '+%Y%m%d-%H%M')" >> $GITHUB_ENV
 
       - name: Current version
         run: echo $VERSION
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - run: npm ci
+      - run: npm run build --if-present
+        env:
+          PUBLIC_URL: http://${{ env.BUCKET }}.s3-website-eu-west-1.amazonaws.com/app/master/$VERSION/
+          REACT_APP_DOMAIN: http://minime.bluecap.se
 
       - name: Create version file
         run: cat build/asset-manifest.json | VERSION=$VERSION node devops/parse-version.js > build/CURRENT_VERSION
@@ -50,8 +53,8 @@ jobs:
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: "s3://${{ env.BUCKET }}/${GITHUB_REF##*/}/CURRENT_VERSION"
-          dest: "s3://${{ env.BUCKET }}/${GITHUB_REF##*/}/PREVIOUS_VERSION"
+          source: 's3://${{ env.BUCKET }}/app/${GITHUB_REF##*/}/CURRENT_VERSION'
+          dest: 's3://${{ env.BUCKET }}/app/${GITHUB_REF##*/}/PREVIOUS_VERSION'
 
       - name: Push build to S3
         uses: jakejarvis/s3-sync-action@master
@@ -61,15 +64,15 @@ jobs:
           AWS_S3_BUCKET: ${{ env.BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "eu-west-1"
-          SOURCE_DIR: "build"
-          DEST_DIR: "${GITHUB_REF##*/}/$VERSION"
+          AWS_REGION: 'eu-west-1'
+          SOURCE_DIR: 'build'
+          DEST_DIR: 'app/${GITHUB_REF##*/}/$VERSION'
 
       - name: Push current version to S3
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: "./build/CURRENT_VERSION"
-          dest: "s3://${{ env.BUCKET }}/${GITHUB_REF##*/}/"
+          source: './build/CURRENT_VERSION'
+          dest: 's3://${{ env.BUCKET }}/app/${GITHUB_REF##*/}/'
           flags: --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/json

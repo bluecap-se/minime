@@ -5,9 +5,11 @@ import Result from './components/layouts/Result'
 import './App.css'
 
 function App() {
+  const basename = process.env.PUBLIC_URL
+
   return (
     <HashProvider>
-      <Router basename="/">
+      <Router basename={basename}>
         <Routes>
           <Route path="/" exact element={<Shrink />} />
           <Route path="/result/" element={<Result />} />
