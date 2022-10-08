@@ -1,7 +1,7 @@
 # MiniMe
 
-[![Build](https://github.com/bluecap-se/minime/actions/workflows/backend.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/backend.yml)
-[![Build](https://github.com/bluecap-se/minime/actions/workflows/frontend-build.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/frontend-build.yml)
+[![Backend](https://github.com/bluecap-se/minime/actions/workflows/backend.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/backend.yml)
+[![Frontend](https://github.com/bluecap-se/minime/actions/workflows/frontend.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/frontend.yml)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
 [![Coverage Status](https://coveralls.io/repos/github/bluecap-se/minime/badge.svg?branch=develop&gh)](https://coveralls.io/github/bluecap-se/minime?branch=develop)
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.10-blue.svg)

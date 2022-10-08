@@ -19,10 +19,21 @@ services:
         expose:
             - "6379"
 
+    frontend:
+        build:
+            context: ../../
+            dockerfile: devops/docker/Dockerfile-frontend
+        container_name: mini_frontend
+        restart: always
+        ports:
+            - "3000:3000"
+        volumes:
+          - ./frontend/:/minime/
+
     web:
         build:
             context: ../../
-            dockerfile: devops/docker/Dockerfile
+            dockerfile: devops/docker/Dockerfile-backend
         container_name: mini_app
         restart: always
         ports:

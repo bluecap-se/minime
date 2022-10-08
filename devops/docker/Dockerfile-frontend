@@ -1,0 +1,16 @@
+FROM node:18-alpine
+
+WORKDIR /minime
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY package.json /minime
+COPY package-lock.json /minime
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+
+COPY ./frontend /minime
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]

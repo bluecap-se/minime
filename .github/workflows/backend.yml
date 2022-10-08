@@ -98,7 +98,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./devops/docker/Dockerfile
+          file: ./devops/docker/Dockerfile-backend
           pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
