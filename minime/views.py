@@ -13,14 +13,11 @@ def index(request):
     :param request: Request object
     :return: Template http response
     """
-    return render(
-        request,
-        "index.html",
-        {
-            "debug": settings.DEBUG,
-            "react_urls": utils.build_react_urls(utils.get_current_app_version()),
-        },
-    )
+    context = {"debug": settings.DEBUG}
+    if not settings.DEBUG:
+        context["react_urls"] = utils.build_react_urls(utils.get_current_app_version())
+
+    return render(request, "index.html", context)
 
 
 def redirect(request, hash):
