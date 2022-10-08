@@ -1,20 +1,20 @@
 import { createContext, useContext, useState } from 'react'
 
-const HashContext = createContext(null)
-const HashDispatchContext = createContext(null)
+const DataContext = createContext(null)
+const DataDispatchContext = createContext(null)
 
-const HashProvider = ({ children }) => {
-  const [hash, dispatch] = useState(null)
+const DataProvider = ({ children }) => {
+  const [data, dispatch] = useState(null)
 
   return (
-    <HashContext.Provider value={hash}>
-      <HashDispatchContext.Provider value={dispatch}>{children}</HashDispatchContext.Provider>
-    </HashContext.Provider>
+    <DataContext.Provider value={data}>
+      <DataDispatchContext.Provider value={dispatch}>{children}</DataDispatchContext.Provider>
+    </DataContext.Provider>
   )
 }
 
-const useHash = () => useContext(HashContext)
+const useData = () => useContext(DataContext)
 
-const useHashDispatch = () => useContext(HashDispatchContext)
+const useDataDispatch = () => useContext(DataDispatchContext)
 
-export { HashProvider, useHash, useHashDispatch }
+export { DataProvider, useData, useDataDispatch }

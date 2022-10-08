@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useHashDispatch } from '../../Contexts.js'
+import { useDataDispatch } from '../../Contexts.js'
 
 const Shrink = () => {
   const [urlInput, setUrlInput] = useState('')
@@ -9,7 +9,7 @@ const Shrink = () => {
   const [passwordInput, setPasswordInput] = useState('')
   const apiDomain = process.env.REACT_APP_DOMAIN
   const navigate = useNavigate()
-  const dispatch = useHashDispatch()
+  const dispatch = useDataDispatch()
 
   const submitForm = (e) => {
     e.preventDefault()
@@ -29,7 +29,7 @@ const Shrink = () => {
           throw Error()
         }
 
-        dispatch({ hash: output.hash })
+        dispatch({ hash: output.hash, hasPassword: !!passwordInput })
         navigate('/result/', { replace: true })
       } catch (err) {
         // TODO: Show error message to user

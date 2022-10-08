@@ -1,11 +1,11 @@
 import Clipboard from 'react-clipboard.js'
-import { useHash } from '../../Contexts.js'
+import { useData } from '../../Contexts.js'
 
 const Result = () => {
-  const { hash } = useHash()
+  const { hash, hasPassword } = useData()
   const domain = process.env.REACT_APP_DOMAIN
-  const hashLink = `${domain}/${hash}`
-  const adminHashLink = `${domain}/${hash}+`
+  const shortLink = `${domain}/${hash}`
+  const adminShortLink = `${domain}/${hash}+`
 
   return (
     <form className="form-shorten">
@@ -29,12 +29,12 @@ const Result = () => {
           <b>
             Here is your new URL:
             <br />
-            <a href={hashLink} id="hash">
-              {hash}
+            <a href={shortLink} id="hash">
+              {shortLink}
             </a>
           </b>
           <Clipboard
-            data-clipboard-text={hashLink}
+            data-clipboard-text={shortLink}
             button-title="Copy URL to clipboard"
             className="clipboard"
           >
@@ -53,13 +53,16 @@ const Result = () => {
             </svg>
           </Clipboard>
         </p>
-        <p className="text-center" style={{ fontSize: '.8rem' }}>
-          Login here to check your stats:
-          <br />
-          <a href={adminHashLink} id="hashAdmin">
-            {hash}+
-          </a>
-        </p>
+
+        {hasPassword && (
+          <p className="text-center" style={{ fontSize: '.8rem' }}>
+            Login here to check your stats:
+            <br />
+            <a href={adminShortLink} id="hashAdmin">
+              {adminShortLink}
+            </a>
+          </p>
+        )}
       </article>
 
       <footer>
