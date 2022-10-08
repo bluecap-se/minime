@@ -28,7 +28,7 @@ services:
         ports:
             - "3000:3000"
         volumes:
-          - ./frontend/:/minime/
+          - ../../frontend/:/minime/
 
     web:
         build:
@@ -44,7 +44,7 @@ services:
             - DATABASE_URL=postgres://admin:password@db:5432/django
         command: ["runserver"]
         volumes:
-          - ./:/minime/
+          - ../../:/minime/
         depends_on:
             - db
             - redis

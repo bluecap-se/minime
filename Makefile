@@ -1,4 +1,4 @@
-.PHONY: install run docker-build docker-push frontend-run frontend-test frontend-build infra-init \
+.PHONY: install run down docker-build docker-push frontend-run frontend-test frontend-build infra-init \
         infra-format infra-validate infra-apply infra-show infra-destroy test test-coverage
 
 
@@ -12,6 +12,9 @@ install:
 
 run:
 	docker-compose -f devops/docker/docker-compose.yml up -d --build
+
+down:
+	docker-compose -f devops/docker/docker-compose.yml down
 
 docker-build:
 	docker build -t bluecap/minime:latest -f devops/docker/Dockerfile .
