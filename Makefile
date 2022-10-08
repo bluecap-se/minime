@@ -1,4 +1,5 @@
-.PHONY: install run deploy update undeploy test test-coverage
+.PHONY: install run docker-build docker-push frontend-run frontend-test frontend-build infra-init \
+        infra-format infra-validate infra-apply infra-show infra-destroy test test-coverage
 
 
 #
@@ -18,6 +19,19 @@ docker-build:
 docker-push: docker-build
 	docker push bluecap/minime:latest
 
+
+#
+# FRONTEND
+#
+
+frontend-run:
+	npm run start --prefix frontend
+
+frontend-test:
+	npm run test --prefix frontend
+
+frontend-build:
+	npm run build --prefix frontend
 
 #
 # DEPLOY

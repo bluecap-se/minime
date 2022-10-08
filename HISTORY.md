@@ -2,6 +2,7 @@
 
 ### Next
 
+- Use React for frontend.
 - Replaced Zappa with Terraform.
 
 ### 0.3.0

@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views import generic
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics
-from minime import forms, models, serializers, utils
+from minime import models, serializers, utils
 
 
 def index(request):
@@ -11,11 +13,11 @@ def index(request):
     :param request: Request object
     :return: Template http response
     """
-    return render(request, "index.html", {"form": forms.ShortenURLForm})
+    context = {"debug": settings.DEBUG}
+    if not settings.DEBUG:
+        context["react_urls"] = utils.build_react_urls(utils.get_current_app_version())
 
-
-def ping(request):
-    return HttpResponse(status=200)
+    return render(request, "index.html", context)
 
 
 def redirect(request, hash):
@@ -48,3 +50,13 @@ class CreateShortUrl(generics.CreateAPIView):
 
     queryset = models.Url.objects.all()
     serializer_class = serializers.UrlSerializer
+
+
+def ping(request):
+    return HttpResponse(status=200)
+
+
+class ReactResetView(generic.View):
+    def get(self, request, *args, **kwargs):
+        utils.get_current_app_version(use_cache=False)
+        return HttpResponse("reset")
