@@ -58,6 +58,13 @@ docs/_build/
 # PyBuilder
 target/
 
+# Terraform
+**/.terraform
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
 # Own
 .env
 .idea
@@ -65,5 +72,3 @@ target/
 staticfiles
 .webassets-cache
 *.sqlite3
-cloudformation-parameters.json
-zappa_settings.json

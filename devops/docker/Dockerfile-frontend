@@ -1,0 +1,15 @@
+FROM node:18-alpine
+
+WORKDIR /minime
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY ./frontend/package.json /minime/
+COPY ./frontend/package-lock.json /minime/
+RUN npm install
+
+COPY ./frontend /minime/
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]

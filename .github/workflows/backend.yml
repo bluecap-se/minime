@@ -1,18 +1,55 @@
-name: build
+name: backend
 
 on:
   push:
-    branches: ["develop", "master"]
-    tags: ["*"]
+    branches: ['*']
+    tags: ['*']
   pull_request:
-    branches: ["master"]
+    branches: ['master']
 
 env:
   USERNAME: bluecap
   REGISTRY: docker.io
-  IMAGE_NAME: "bluecap/minime"
+  IMAGE_NAME: 'bluecap/minime'
 
 jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest pipenv
+          if [ -f Pipfile ]; then pipenv install; fi
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Run tests
+        env:
+          DJANGO_DEBUG: True
+        run: make test
+
   build:
     name: Build and push Docker image
     if: github.event_name != 'pull_request'
@@ -61,7 +98,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./devops/docker/Dockerfile
+          file: ./devops/docker/Dockerfile-backend
           pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -76,7 +113,7 @@ jobs:
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
         env:
-          COSIGN_EXPERIMENTAL: "true"
+          COSIGN_EXPERIMENTAL: 'true'
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}

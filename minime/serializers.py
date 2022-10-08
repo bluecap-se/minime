@@ -7,7 +7,7 @@ from minime import models, utils
 
 class UrlSerializer(serializers.ModelSerializer):
     hash = serializers.SlugField(required=False)
-    password = serializers.CharField(required=False, write_only=True)
+    password = serializers.CharField(required=False, write_only=True, allow_blank=True)
 
     class Meta:
         model = models.Url

@@ -1,7 +1,7 @@
 # MiniMe
 
-[![Tests](https://github.com/bluecap-se/minime/actions/workflows/test.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/test.yml)
-[![Build](https://github.com/bluecap-se/minime/actions/workflows/build.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/build.yml)
+[![Backend](https://github.com/bluecap-se/minime/actions/workflows/backend.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/backend.yml)
+[![Frontend](https://github.com/bluecap-se/minime/actions/workflows/frontend.yml/badge.svg)](https://github.com/bluecap-se/minime/actions/workflows/frontend.yml)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
 [![Coverage Status](https://coveralls.io/repos/github/bluecap-se/minime/badge.svg?branch=develop&gh)](https://coveralls.io/github/bluecap-se/minime?branch=develop)
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.10-blue.svg)
@@ -26,23 +26,16 @@ $ open http://127.0.0.1:8000/
 
 ## Deployment
 
-This project is setup to be deployed on AWS using [Zappa](https://github.com/zappa/Zappa).
-
-Deploy by first creating the necessary infrastructure on AWS. First, rename `cloudformation-parameters.json.example` file to
-`cloudformation-parameters.json` and input the values.
-
-Then create and deploy the Cloudformation stack with:
+This project can be deployed on AWS using [Terraform](https://www.terraform.io).
 
 ```
-$ make infrastructure-create
+$ make infra-init
 ```
 
-Wait until the Cloudformation stack has completed successfully.
-
-Then deploy Zappa with:
+Then apply the changes with:
 
 ```
-$ make deploy
+$ make infra-apply
 ```
 
 ### Environment variables
@@ -55,7 +48,7 @@ These environment variables are available:
 | DJANGO_SECRET_KEY | Secret key                    | Change!        |
 | DJT_ENABLED       | Should DJT be shown?          | False          |
 | DATABASE_URL      | Database url                  | Local SQLite   |
-| REDIS_URL         | URL to local redis cache      | Local redis    |
+| REDIS_URL         | URL to redis cache            | Local redis    |
 | SENTRY_DNS        | URL for Sentry error tracking | None           |
 | ALLOWED_HOSTS     | Set to your domain            | Django default |
 

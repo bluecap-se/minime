@@ -2,6 +2,11 @@
 
 ### Next
 
+### 0.4.0
+
+- Use React for frontend.
+- Replaced Zappa with Terraform.
+
 ### 0.3.0
 
 - Updated Python and deps to latest versions.

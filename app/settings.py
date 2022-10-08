@@ -33,12 +33,7 @@ ALLOWED_HOSTS = (
     if DEBUG
     else env.list(
         "ALLOWED_HOSTS",
-        default=[
-            "localhost",
-            "127.0.0.1",
-            "[::1]",
-            ".execute-api.eu-west-1.amazonaws.com",
-        ],
+        default=["localhost", "127.0.0.1", "[::1]"],
     )
 )
 
@@ -60,7 +55,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_user_agents",
     "rest_framework",
-    "zappa_django_utils",
     # Own
     "minime",
 ]

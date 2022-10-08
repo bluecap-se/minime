@@ -5,9 +5,7 @@ COPY . /minime
 
 COPY devops/docker/docker-entrypoint.sh /usr/local/bin/
 
-RUN apt-get update && apt-get install -y gcc default-libmysqlclient-dev
-
-RUN pip install pipenv==2022.9.8 && \
+RUN pip install pipenv==2022.9.24 && \
     pipenv install --system --deploy
 
 ENTRYPOINT ["docker-entrypoint.sh"]
