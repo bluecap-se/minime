@@ -1,5 +1,5 @@
-.PHONY: install run docker-build docker-push frontend-run frontend-build infra-init infra-format \
-        infra-validate infra-apply infra-show infra-destroy test test-coverage
+.PHONY: install run docker-build docker-push frontend-run frontend-test frontend-build infra-init \
+        infra-format infra-validate infra-apply infra-show infra-destroy test test-coverage
 
 
 #
@@ -26,6 +26,9 @@ docker-push: docker-build
 
 frontend-run:
 	npm run start --prefix frontend
+
+frontend-test:
+	npm run test --prefix frontend
 
 frontend-build:
 	npm run build --prefix frontend
