@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDataDispatch } from '../../Contexts.js'
+import logo from '../../images/logo.png'
 
 const Shrink = () => {
   const [urlInput, setUrlInput] = useState('')
@@ -42,13 +43,7 @@ const Shrink = () => {
   return (
     <form className="form-shorten" onSubmit={submitForm}>
       <header className="text-center mb-4">
-        <img
-          className="mb-4 logo"
-          src="/images/logo.png"
-          alt="Minime logo"
-          width="90"
-          height="90"
-        />
+        <img className="mb-4 logo" src={logo} alt="Minime logo" width="90" height="90" />
         <h1 className="h3 mb-3 font-weight-normal">MiniMe</h1>
         <p>Shrinking that link of yours</p>
       </header>
