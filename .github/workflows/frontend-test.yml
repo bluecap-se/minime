@@ -2,14 +2,16 @@ name: frontend tests
 
 on:
   push:
-    branches: ["*"]
-    tags: ["*"]
+    branches: ['*']
+    tags: ['*']
 
 jobs:
   test:
     name: Test frontend
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./frontend
     strategy:
       matrix:
         node-version: [18]
@@ -22,7 +24,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: 'npm'
+          cache-dependency-path: ./frontend/package-lock.json
 
       - run: npm ci
       - run: npm test

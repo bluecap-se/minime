@@ -1,6 +1,5 @@
 from django.core.cache import cache
-from django.test import TestCase
-from django.test import Client
+from django.test import Client, TestCase, utils
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -11,6 +10,7 @@ class ViewsTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
+    @utils.override_settings(DEBUG=True)
     def test_view_index(self):
         response = self.client.get(reverse("minime:home"))
         self.assertEqual(response.status_code, 200)
