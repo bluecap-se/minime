@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minime-deployment
+  labels:
+    app: minime
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: minime
+  template:
+    metadata:
+      labels:
+        app: minime
+    spec:
+      containers:
+      - image: bluecap/minime:latest
+        name: minime
+        envFrom:
+        - configMapRef:
+            name: minime-config
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: user
+
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: password
+
+          - name: POSTGRES_HOST
+            value: postgres-service
+
+          - name: REDIS_HOST
+            value: redis-service
+
+          - name: DATABASE_URL
+            value: postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):5432/$(POSTGRES_DB)
+          - name: REDIS_URL
+            value: rediscache://$(REDIS_HOST):6379/1?client_class=django_redis.client.DefaultClient&compressor=django_redis.compressors.zlib.ZlibCompressor
+        ports:
+          - containerPort: 8000
+            name: gunicorn
+      restartPolicy: Always
+  backoffLimit: 5

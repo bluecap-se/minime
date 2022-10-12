@@ -1,5 +1,5 @@
 .PHONY: install run down docker-build docker-push frontend-run frontend-test frontend-build infra-init \
-        infra-format infra-validate infra-apply infra-show infra-destroy test test-coverage
+        infra-format infra-validate infra-apply infra-show infra-destroy infra-k8s-apply test test-coverage
 
 
 #
@@ -36,6 +36,7 @@ frontend-test:
 frontend-build:
 	npm run build --prefix frontend
 
+
 #
 # DEPLOY
 #
@@ -58,6 +59,11 @@ infra-show:
 
 infra-destroy:
 	terraform -chdir=devops/terraform destroy
+
+infra-k8s-apply:
+	kubectl apply -f devops/kubernetes/postgres/
+	kubectl apply -f devops/kubernetes/redis/
+	kubectl apply -f devops/kubernetes/app/
 
 
 #
