@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: minime-config
 data:
-  ALLOWED_HOSTS: '*'
-  DEBUG: 'False'
+  DJANGO_DEBUG: 'False'
   DJT_ENABLED: 'False'
+  ALLOWED_HOSTS: '*'
+  SENTRY_DSN: ''
