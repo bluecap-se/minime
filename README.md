@@ -7,26 +7,38 @@
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.10-blue.svg)
 [![Docker pulls](https://img.shields.io/docker/pulls/bluecap/minime)](https://hub.docker.com/r/bluecap/minime)
 ![Platform](https://img.shields.io/badge/platform-win%20%7C%20lin%20%7C%20osx-lightgrey.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bluecap-se/minime/blob/master/LICENSE)
 
 The last link shortener you'll ever need.
 
-## Install and run
+## Get started
 
 ### Run with Docker
 
-The preferred method is to run the project inside a Docker container.
+Minime can run with [Docker](https://www.docker.com) compose, to set up follow these steps:
 
 ```
-$ git clone git@github.com:bluecap-se/minime.git
-$ cd minime
-$ make run
-$ open http://127.0.0.1:8000/
+$ git clone git@github.com:bluecap-se/minime.git && cd "$_"
+$ make docker-run
+$ open http://127.0.0.1:8000
+```
+
+### Run with Kubernetes
+
+Minime can run with [Kubernetes](https://kubernetes.io), to set up follow these steps:
+
+```
+$ git clone git@github.com:bluecap-se/minime.git && cd "$_"
+$ minikube start
+$ make infra-k8s-apply
+$ open `minikube service minime --url`
 ```
 
 ## Deployment
 
-This project can be deployed on AWS using [Terraform](https://www.terraform.io).
+### AWS ECS
+
+Minime can be deployed on AWS ECS using [Terraform](https://www.terraform.io).
 
 ```
 $ make infra-init
@@ -38,19 +50,28 @@ Then apply the changes with:
 $ make infra-apply
 ```
 
-### Environment variables
+### Kubernetes
+
+Minime can be deployed to any [Kubernetes](https://kubernetes.io) cluster.
+First, set up your cluster and point it to kubectl. Then run:
+
+```
+$ make infra-k8s-apply
+```
+
+## Environment variables
 
 These environment variables are available:
 
-| Variable          | Description                   | Default        |
-| ----------------- | ----------------------------- | -------------- |
-| DJANGO_DEBUG      | Debug mode                    | False          |
-| DJANGO_SECRET_KEY | Secret key                    | Change!        |
-| DJT_ENABLED       | Should DJT be shown?          | False          |
-| DATABASE_URL      | Database url                  | Local SQLite   |
-| REDIS_URL         | URL to redis cache            | Local redis    |
-| SENTRY_DNS        | URL for Sentry error tracking | None           |
-| ALLOWED_HOSTS     | Set to your domain            | Django default |
+| Variable          | Description                  | Default   |
+| ----------------- | ---------------------------- | --------- |
+| ALLOWED_HOSTS     | Set to your domain           | Localhost |
+| DJANGO_DEBUG      | Debug mode                   | False     |
+| DJANGO_SECRET_KEY | Secret key                   | Change!   |
+| DJT_ENABLED       | Show Django Debug Toolbar?   | False     |
+| DATABASE_URL      | URL to database              | SQLite    |
+| REDIS_URL         | URL to redis                 | Memory    |
+| SENTRY_DSN        | URL to Sentry error tracking | None      |
 
 ## Run tests
 
