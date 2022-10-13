@@ -2,6 +2,10 @@
 
 ### Next
 
+### 0.5.0
+
+- Added Kubernetes support.
+
 ### 0.4.0
 
 - Use React for frontend.
