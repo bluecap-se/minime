@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: minime-config
+  name: app-config
 data:
   DJANGO_DEBUG: 'False'
   DJT_ENABLED: 'False'

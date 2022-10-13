@@ -31,7 +31,7 @@ Minime can run with [Kubernetes](https://kubernetes.io), to set up follow these 
 $ git clone git@github.com:bluecap-se/minime.git && cd "$_"
 $ minikube start
 $ make infra-k8s-apply
-$ open `minikube service minime --url`
+$ open `minikube service app --url`
 ```
 
 ## Deployment
