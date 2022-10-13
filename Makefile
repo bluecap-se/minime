@@ -1,5 +1,6 @@
-.PHONY: install run down docker-build docker-push frontend-run frontend-test frontend-build infra-init \
-        infra-format infra-validate infra-apply infra-show infra-destroy test test-coverage
+.PHONY: install docker-run docker-down docker-build docker-push frontend-run frontend-test frontend-build \
+        infra-init infra-format infra-validate infra-apply infra-show infra-destroy \
+		infra-k8s-apply infra-k8s-dashboard test test-coverage
 
 
 #
@@ -10,10 +11,10 @@ install:
 	pipenv install
 	pipenv shell
 
-run:
+docker-run:
 	docker-compose -f devops/docker/docker-compose.yml up -d --build
 
-down:
+docker-down:
 	docker-compose -f devops/docker/docker-compose.yml down
 
 docker-build:
@@ -35,6 +36,7 @@ frontend-test:
 
 frontend-build:
 	npm run build --prefix frontend
+
 
 #
 # DEPLOY
@@ -58,6 +60,14 @@ infra-show:
 
 infra-destroy:
 	terraform -chdir=devops/terraform destroy
+
+infra-k8s-apply:
+	kubectl apply -f devops/kubernetes/postgres/
+	kubectl apply -f devops/kubernetes/redis/
+	kubectl apply -f devops/kubernetes/app/
+
+infra-k8s-dashboard:
+	open `minikube dashboard --url`
 
 
 #
