@@ -2,8 +2,7 @@ name: backend
 
 on:
   push:
-    branches: ['*']
-    tags: ['*']
+    branches: ['*', '*/*']
   pull_request:
     branches: ['master']
 

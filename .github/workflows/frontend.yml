@@ -1,9 +1,6 @@
 name: frontend
 
-on:
-  push:
-    branches: ['*']
-    tags: ['*']
+on: [push]
 
 env:
   BUCKET: minime-static-frontend
