@@ -2,6 +2,8 @@
 
 ### Next
 
+- Updated to Python 3.11.
+
 ### 0.5.0
 
 - Added Kubernetes support.
